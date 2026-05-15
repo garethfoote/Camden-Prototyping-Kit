@@ -2,10 +2,30 @@
 
 A small Express and Nunjucks prototype kit for Camden transactional services. It uses `lbcamden-frontend` for the Camden header, footer, button, CSS and static assets, with familiar prototype routes and session-backed data.
 
+## For designers
+
+Start with [DESIGNER-SETUP.md](DESIGNER-SETUP.md). It explains how to clone the repo with GitHub Desktop, open it in Codex, start the prototype on a Mac and stop it again.
+
+Use [PROMPTS.md](PROMPTS.md) for copy-paste prompts that ask Codex to create or edit Camden service journeys using this kit's existing patterns.
+
 ## Run it
 
+The easiest Mac option is to double-click:
+
+```text
+start.command
+```
+
+If macOS will not run the command files, set their permissions once:
+
 ```sh
-npm install
+chmod +x start.command update.command
+```
+
+For terminal use:
+
+```sh
+npm ci
 npm run dev
 ```
 
@@ -18,6 +38,12 @@ npm run dev:3010
 ```
 
 Open `http://localhost:3010`.
+
+## Deployed prototype password
+
+Set `PROTOTYPE_PASSWORD` in the deployment environment to password protect a deployed prototype. This is only enforced when `NODE_ENV=production`, so local designer startup stays password-free.
+
+The browser will show a basic username/password prompt. Any username is accepted; the password must match `PROTOTYPE_PASSWORD`.
 
 ## Add a page
 

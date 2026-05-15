@@ -15,7 +15,7 @@
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "govuk-frontend": "^5.8.0",
-    "lbcamden-frontend": "1.0.7",
+    "lbcamden-frontend": "1.0.8",
     "nunjucks": "^3.2.4",
     "sass": "^1.89.0"
   },

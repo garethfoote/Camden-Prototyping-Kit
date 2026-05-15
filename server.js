@@ -10,6 +10,7 @@ const app = express()
 const isProduction = process.env.NODE_ENV === 'production'
 const port = process.env.PORT || 3000
 const appViews = path.join(__dirname, 'app/views')
+const prototypePassword = process.env.PROTOTYPE_PASSWORD
 
 const nunjucksEnv = nunjucks.configure([
   appViews,
@@ -26,6 +27,30 @@ nunjucksEnv.addFilter('json', (value) => JSON.stringify(value, null, 2))
 
 app.set('view engine', 'njk')
 app.set('views', appViews)
+
+if (isProduction) {
+  app.use((req, res, next) => {
+    if (!prototypePassword) {
+      return res.status(503).send('PROTOTYPE_PASSWORD is not configured')
+    }
+
+    const authHeader = req.get('authorization') || ''
+    const [scheme, encodedCredentials] = authHeader.split(' ')
+
+    if (scheme === 'Basic' && encodedCredentials) {
+      const credentials = Buffer.from(encodedCredentials, 'base64').toString('utf8')
+      const separatorIndex = credentials.indexOf(':')
+      const password = separatorIndex === -1 ? '' : credentials.slice(separatorIndex + 1)
+
+      if (password === prototypePassword) {
+        return next()
+      }
+    }
+
+    res.set('WWW-Authenticate', 'Basic realm="Camden prototype"')
+    res.status(401).send('Password required')
+  })
+}
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
