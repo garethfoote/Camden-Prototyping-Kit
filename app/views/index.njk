@@ -10,10 +10,13 @@
       <h1 class="govuk-heading-xl">Camden prototype kit</h1>
       <p class="govuk-body-l">Use this project to sketch transactional Camden services with Nunjucks, routes and session data.</p>
 
+      <h2 class="govuk-heading-l">Example journeys</h2>
+
       <div class="govuk-button-group">
         {{ LBCamdenButton({
           text: "Start complaints form",
-          href: "/complaints/who-for"
+          href: "/complaints/who-for",
+          classes: "lbcamden-button--secondary"
         }) }}
         {{ LBCamdenButton({
           text: "Start sample permit flow",
