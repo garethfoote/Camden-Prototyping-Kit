@@ -147,7 +147,7 @@ camden-report-a-goose-sighting-prototype
 
 ```text
 Name: camden-report-a-goose-sighting-prototype
-Runtime: Node
+Language: Node
 Build Command: npm ci
 Start Command: npm start
 ```
