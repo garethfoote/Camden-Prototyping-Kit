@@ -6,10 +6,10 @@ This guide is for Camden designers using a Mac. You do not need to be a develope
 
 Install these apps first:
 
-- GitHub Desktop, to clone and update the repository.
-- Codex, to ask for changes to journeys and pages.
-- Visual Studio Code, to open and read the code when you want to inspect what Codex changed.
-- The current Node.js 22 LTS desktop installer, to run the prototype on your Mac.
+- [GitHub Desktop](https://desktop.github.com/download/), to clone and update the repository.
+- [Codex](https://openai.com/codex/), to ask for changes to journeys and pages.
+- [Visual Studio Code](https://code.visualstudio.com/), to open and read the code when you want to inspect what Codex changed.
+- The current [Node.js](https://nodejs.org/en) 22 LTS desktop installer, to run the prototype on your Mac.
 
 The normal Node.js desktop installer includes `node` and `npm`. It does not include `nvm`, and designers do not need `nvm`.
 
