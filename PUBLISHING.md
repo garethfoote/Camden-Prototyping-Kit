@@ -8,13 +8,17 @@ Use this when a prototype is ready to share outside your own Mac.
 
 1. Build or edit the journey locally with Codex.
 2. Run the prototype locally and check it in the browser.
-3. Review the changed files in GitHub Desktop or VS Code.
-4. Commit the changes in GitHub Desktop.
-5. Publish or push the repository to GitHub.
-6. Deploy the GitHub repository on Render.
-7. Set a deployed prototype password in Render.
+3. Create a new GitHub repository for this service prototype.
+4. Point GitHub Desktop at the new repository, not the original template.
+5. Review the changed files in GitHub Desktop or VS Code.
+6. Commit the changes in GitHub Desktop.
+7. Push the repository to GitHub.
+8. Deploy the GitHub repository on Render.
+9. Set a deployed prototype password in Render.
 
 Use GitHub Desktop for committing, publishing and pushing. It gives designers a visual review step before anything is sent to GitHub. Use Codex when you want help checking changes, writing a commit message, or fixing a GitHub Desktop warning.
+
+Do not push service-specific prototype changes back to the original prototype kit repository. Keep the original repository as a clean template.
 
 ## GitHub account
 
@@ -42,6 +46,65 @@ camden-parking-permit-prototype
 camden-council-tax-discount-prototype
 ```
 
+## Create a new GitHub repository
+
+Do this before pushing changes from GitHub Desktop.
+
+1. Go to `https://github.com`.
+2. Sign in if GitHub asks you to.
+3. In the top navigation, click the **+** icon.
+4. Choose **New repository**.
+5. Choose the owner. This might be your own account or a Camden team or organisation account.
+6. In **Repository name**, enter the service prototype repository name, for example:
+
+```text
+camden-report-a-goose-sighting-prototype
+```
+
+7. In **Description**, add a short description if useful, for example:
+
+```text
+Prototype for reporting a goose sighting in Camden.
+```
+
+8. Choose **Private** unless you have been told to make it public.
+9. Leave **Add a README file** unticked.
+10. Leave **Add .gitignore** set to **None**.
+11. Leave **Choose a license** set to **None**.
+12. Click **Create repository**.
+13. GitHub will show a page headed something like **Quick setup**.
+14. Copy the repository URL. Use the HTTPS URL unless your team has told you to use SSH. It will look like:
+
+```text
+https://github.com/YOUR-ACCOUNT/camden-report-a-goose-sighting-prototype.git
+```
+
+The new GitHub repository should be empty. That is expected. The files already exist on your Mac and will be pushed from GitHub Desktop.
+
+## Point GitHub Desktop at the new repository
+
+If you cloned the original Camden prototype kit, GitHub Desktop is still connected to that original template repository. Change the remote before you push.
+
+1. Open GitHub Desktop.
+2. Select the local prototype repository.
+3. In the menu bar, choose **Repository > Repository Settings**.
+4. Choose the **Remote** pane.
+5. Under **Primary remote repository**, replace the existing URL with the new GitHub repository URL.
+6. Click **Save**.
+
+After saving, GitHub Desktop should push to the new service repository instead of the original template.
+
+To check it is correct:
+
+1. In GitHub Desktop, choose **Repository > View on GitHub**.
+2. Confirm the browser opens the service repository, for example:
+
+```text
+camden-report-a-goose-sighting-prototype
+```
+
+If it opens the original template repository, stop and ask Codex to help before pushing.
+
 ## Commit the prototype in GitHub Desktop
 
 1. Open GitHub Desktop.
@@ -58,20 +121,7 @@ Add goose sighting journey
 
 ## Publish or push to GitHub
 
-If this is the first time this prototype has gone to GitHub:
-
-1. In GitHub Desktop, click **Publish repository**.
-2. Use the repository name:
-
-```text
-camden-report-a-goose-sighting-prototype
-```
-
-3. Choose the GitHub account or organisation that should own the prototype.
-4. Keep it private unless you have been told to make it public.
-5. Click **Publish repository**.
-
-If the repository already exists on GitHub:
+After the new GitHub repository has been created and GitHub Desktop points to it:
 
 1. Commit your changes in GitHub Desktop.
 2. Click **Push origin**.
