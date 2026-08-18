@@ -24,6 +24,10 @@ If you already use `nvm`, the project includes `.nvmrc` so `start.command` and `
 4. Choose where to save it on your Mac.
 5. Click **Clone**.
 
+In the **Clone a Repository** window, search for `Camden` or `garethfoote/Camden-Prototyping-Kit`, then select **Camden-Prototyping-Kit** under **Your Repositories**. The account name may be different if the repository belongs to a Camden organisation.
+
+![GitHub Desktop Clone a Repository window showing Camden-Prototyping-Kit](docs/images/github-desktop-clone-repository.png)
+
 ## Open the repo in Codex
 
 1. Open Codex.
@@ -31,6 +35,10 @@ If you already use `nvm`, the project includes `.nvmrc` so `start.command` and `
 3. Select the folder you cloned with GitHub Desktop.
 4. This will create a project with the name of the cloned repo.
 5. From here you can start prompting.
+
+You should now see the cloned repository listed under **Projects** in Codex and selected in the left-hand panel. The project name will usually match the folder or repository name.
+
+![Codex with the cloned repository open as a project](docs/images/codex-opened-repository.png)
 
 Useful copy-paste prompts are in [PROMPTS.md](PROMPTS.md).
 
