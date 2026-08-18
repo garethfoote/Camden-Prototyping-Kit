@@ -6,9 +6,29 @@ A small Express and Nunjucks prototype kit for Camden transactional services. It
 
 Start with [DESIGNER-SETUP.md](DESIGNER-SETUP.md). It explains how to clone the repo with GitHub Desktop, open it in Codex, start the prototype on a Mac and stop it again.
 
-Use [PROMPTS.md](PROMPTS.md) for copy-paste prompts that ask Codex to create or edit Camden service journeys using this kit's existing patterns.
+When this repository is open in Codex, it includes a Camden prototyping skill in `.agents/skills`. A skill is a small set of instructions that helps Codex follow a repeatable process. It is not another app and it does not change your prototype by itself. It helps Codex understand how to inspect this kit, use the Camden patterns, explain its plan, make the changes and check the result. See [OpenAI's guide to Codex skills](https://learn.chatgpt.com/docs/build-skills) for the wider idea.
+
+You can use the skill explicitly by starting a prompt with `$camden-prototyping`, or simply describe what you want in your own words. For example:
+
+```text
+$camden-prototyping Create a prototype for reporting a missed bin collection. Start by proposing the page flow, then build it using the existing Camden patterns and tell me which pages to review.
+```
+
+Use [PROMPTS.md](PROMPTS.md) when you want copy-paste prompt examples or more control over the brief. The skill and the prompt templates are complementary: the skill provides the process, while the templates provide examples of useful detail to include.
 
 Use [PUBLISHING.md](PUBLISHING.md) when a prototype is ready to publish to GitHub, deploy on Render and password protect.
+
+## What the skill does
+
+The skill is most useful when you want Codex to:
+
+- turn a service idea, sketch or wireframe into a page journey
+- add form validation and saved answers
+- add conditional branches, check answers or confirmation pages
+- revise copy without accidentally changing the journey behaviour
+- check the local prototype and give you pages to review
+
+It encourages Codex to inspect the existing `permit` and `complaints` examples before editing, use `app/routes.js` and `app/views`, reuse Camden/GOV.UK components, and keep answers in the prototype session. You still decide what the service should do and which changes are ready to share.
 
 ## Run it
 
@@ -74,7 +94,7 @@ Example:
 
 ## Generating flows with Codex
 
-Ask Codex to follow the existing sample flow:
+Ask Codex to use the Camden prototyping skill and follow the existing sample flow:
 
 > Add a Camden prototype journey for reporting a missed bin collection. Use pages for address lookup, collection type, contact details, check answers and confirmation. Store answers in `req.session.data`.
 

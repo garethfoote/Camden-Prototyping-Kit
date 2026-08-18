@@ -1,6 +1,21 @@
 # Codex prompt templates
 
-Copy one of these prompts into Codex while this repository is open. Replace the bracketed text with your service details.
+This repository includes a Camden prototyping skill. You can describe your idea in your own words, or start a prompt with `$camden-prototyping` to ask Codex to follow the repository workflow.
+
+Use the templates below when you want a copy-paste starting point or want to give Codex a more structured brief. Replace the bracketed text with your service details.
+
+## What to include in a good brief
+
+You do not need to know the code before you start. The most useful information is:
+
+- what the service helps a resident do
+- who the user is and what they are trying to achieve
+- the pages or questions you already have in mind
+- any branches, eligibility rules or early exits
+- important wording, hints or content from your research
+- whether you are starting from a sketch, wireframe or existing journey
+
+If you are unsure about the page order, ask Codex to propose a journey map first. The Camden prototyping skill should explain the proposed pages, branches and saved answers before making a substantial change.
 
 All prompts should keep to the Camden frontend library and Storybook patterns: https://main--645a25e00de84a612195c9a5.chromatic.com/. Ask Codex to reuse existing Camden/GOV.UK classes, macros and components rather than inventing new styles.
 

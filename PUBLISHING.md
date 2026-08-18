@@ -6,7 +6,7 @@ Use this when a prototype is ready to share outside your own Mac.
 
 ## Recommended workflow
 
-1. Build or edit the journey locally with Codex.
+1. Build or edit the journey locally with Codex, using the Camden prototyping skill where useful.
 2. Run the prototype locally and check it in the browser.
 3. Create a new GitHub repository for this service prototype.
 4. Point GitHub Desktop at the new repository, not the original template.
@@ -17,6 +17,8 @@ Use this when a prototype is ready to share outside your own Mac.
 9. Set a deployed prototype password in Render.
 
 Use GitHub Desktop for committing, publishing and pushing. It gives designers a visual review step before anything is sent to GitHub. Use Codex when you want help checking changes, writing a commit message, or fixing a GitHub Desktop warning.
+
+The Camden prototyping skill helps with the local build and review process, but publishing remains a deliberate designer-controlled step. It does not commit, push or deploy the prototype automatically.
 
 Do not push service-specific prototype changes back to the original prototype kit repository. Keep the original repository as a clean template.
 

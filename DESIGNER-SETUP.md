@@ -8,8 +8,9 @@ Install these apps first:
 
 - [GitHub Desktop](https://desktop.github.com/download/), to clone and update the repository.
 - [Codex](https://openai.com/codex/), to ask for changes to journeys and pages.
-- [Visual Studio Code](https://code.visualstudio.com/), to open and read the code when you want to inspect what Codex changed.
 - The current [Node.js](https://nodejs.org/en) 22 LTS desktop installer, to run the prototype on your Mac.
+- (optional) [Visual Studio Code](https://code.visualstudio.com/), to open and read the code when you want to inspect what Codex changed.
+
 
 The normal Node.js desktop installer includes `node` and `npm`. It does not include `nvm`, and designers do not need `nvm`.
 
@@ -32,6 +33,43 @@ If you already use `nvm`, the project includes `.nvmrc` so `start.command` and `
 5. From here you can start prompting.
 
 Useful copy-paste prompts are in [PROMPTS.md](PROMPTS.md).
+
+## What is a skill?
+
+A Codex skill is a set of instructions for a repeatable type of work. This repository includes a Camden prototyping skill so you do not need to remember all the technical patterns or find the perfect prompt before you begin. You can read [OpenAI's guide to Codex skills](https://learn.chatgpt.com/docs/build-skills) for a general explanation.
+
+The skill helps Codex to:
+
+- understand that this is a Camden transactional prototype
+- inspect the existing example journeys before making changes
+- propose a page flow and point out assumptions
+- use the existing Camden frontend and GOV.UK patterns
+- add routes, Nunjucks pages, validation and session-backed answers consistently
+- check the result and tell you which pages to review
+
+It does not replace your design judgement. You still describe the service, users, questions and content. It also does not publish anything automatically.
+
+## Use the Camden prototyping skill
+
+With the repository open in Codex, start with a plain-language request. You can mention the skill explicitly with `$camden-prototyping`:
+
+```text
+$camden-prototyping I need a prototype for reporting a missed bin collection. Please propose the journey first, including any branches, then build it and give me the local URL to review.
+```
+
+You can also ask for a specific kind of change:
+
+```text
+$camden-prototyping Turn this attached sketch into Camden prototype pages. Keep the existing patterns, add sensible validation and include a check answers page.
+```
+
+```text
+$camden-prototyping Add a conditional branch to this journey. First explain the routes and saved answers you will use, then implement and check it locally.
+```
+
+Codex should explain the proposed journey before making a substantial change. Review that explanation and correct the service details or wording before asking it to continue if needed.
+
+If the skill does not appear after you update the repository, restart Codex. You can use the examples in [PROMPTS.md](PROMPTS.md) as a fallback or when you want to give Codex a particularly detailed brief.
 
 ## Open the code in VS Code
 

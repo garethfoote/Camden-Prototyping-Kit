@@ -1,0 +1,4 @@
+interface:
+  display_name: "Camden prototype journeys"
+  short_description: "Create and revise Camden service journeys"
+  default_prompt: "Help me create or revise a Camden transactional journey. First propose the page flow, then implement it using this repository's existing patterns and check the result locally."
