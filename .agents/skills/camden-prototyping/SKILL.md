@@ -38,6 +38,10 @@ For each form page:
 5. Save valid answers to `req.session.data` and redirect to the next page.
 6. Add a useful back link that follows the journey order.
 
+When the brief says that all fields require input, treat every field as required unless it is explicitly marked optional. Add server-side required validation for text inputs, dates, radios, checkboxes, and other controls, with matching error-summary and inline error messages. If the brief does not say whether a field is optional, call out that assumption in the proposed journey rather than silently choosing.
+
+When adding a new service journey, add a clear button or link for it on the homepage, above the `Examples` heading. Use the existing homepage structure, Camden button/link pattern, and a descriptive service name that points to the journey start page.
+
 For a complete transactional journey, include a start page, the necessary form pages, a check answers page, and a confirmation page. Add a Change link for every answer shown on the check answers page. Keep branches explicit and make sure the check answers page reflects the answers that determine the branch.
 
 ## Question-page defaults
@@ -143,6 +147,7 @@ Read:
 ## Design and implementation rules
 
 - Follow Camden frontend and GOV.UK patterns already present in the repository.
+- Follow the [Camden frontend library styles and Storybook patterns](https://main--645a25e00de84a612195c9a5.chromatic.com/). Use Storybook to find and check the closest existing component pattern before building or styling something new.
 - Prefer existing macros, classes, spacing, buttons, labels, hints, error messages, summary lists, and confirmation patterns.
 - Treat the existing Camden frontend library as the source of truth for components, markup, styles, spacing, typography, buttons, and form controls.
 - Do not create a custom component, custom CSS style, custom button style, custom form control, or custom spacing system when an existing frontend-library pattern fits.
