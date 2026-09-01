@@ -62,17 +62,27 @@ It does not replace your design judgement. You still describe the service, users
 With the repository open in Codex, start with a plain-language request. You can mention the skill explicitly with `$camden-prototyping`:
 
 ```text
-$camden-prototyping I need a prototype for reporting a missed bin collection. Please propose the journey first, including any branches, then build it and give me the local URL to review.
+$camden-prototyping Create a new Camden prototype journey for a service to Borrow the mayor’s umbrella.
 ```
+It will then prompt you to provide the details of that journey. You can provide a list of pages with questions and possible answers; a sketch of an interface; some screenshots or wireframes. If there are ambiguities about the answers it should prompt you to clarify.
+
+Here is an example of a journey in text:
+```text
+- Start page
+- Is it raining today? [Yes or No]
+    - [No branch] Early termination page that states, "We're sorry you can’t borrow the mayor’s umbrella today as it is not raining."
+    - [Yes branch]
+        - What date do you need the umbrella? [Date input with hint "For example, 16 4 2026”]
+        - Where do you want the umbrella delivered to? [Address input fieldset]
+        - What date will you return the umbrella? [Date input with hint "For example, 16 4 2026”]
+        - Check your answers page
+    - Confirmation page with a random reference number
+```
+
 
 You can also ask for a specific kind of change:
-
 ```text
-$camden-prototyping Turn this attached sketch into Camden prototype pages. Keep the existing patterns, add sensible validation and include a check answers page.
-```
-
-```text
-$camden-prototyping Add a conditional branch to this journey. First explain the routes and saved answers you will use, then implement and check it locally.
+$camden-prototyping Add a conditional branch to this journey. If the users selects that they live in the UK take them to a UK specific address entry.  
 ```
 
 Codex should explain the proposed journey before making a substantial change. Review that explanation and correct the service details or wording before asking it to continue if needed.
