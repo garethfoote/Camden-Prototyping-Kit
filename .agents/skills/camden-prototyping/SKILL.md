@@ -17,6 +17,30 @@ Use this skill to help designers turn a service idea, journey map, sketch, or co
    - Use `app/views/complaints` for a longer journey with branches or several form pages.
 5. For a new journey, describe the proposed page sequence, branches, saved answers, and assumptions before implementing it. Ask only for information that is genuinely needed to proceed.
 
+## New journey intake
+
+If a user asks for a new journey but gives only a service idea, do not start coding immediately. Ask them for enough information to define the pages and controls first. They can provide any combination of:
+
+- a list of pages or questions, in order
+- a sketch, screenshot, wireframe, journey map, or existing form to follow
+- the choices, fields, content, eligibility rules, and branches for each page
+- which fields are required or optional, and any exact wording, hints, or error messages
+
+Use this prompt when the request needs more detail:
+
+> Please provide the page sequence for this service, or attach a sketch, screenshot or wireframe. For each page, describe what the user needs to read, choose or enter, the available options, whether anything is required, and what happens next. You do not need to name the technical component — plain language is fine. For example, say “choose one option”, “choose any that apply”, “enter a date”, or “enter a long explanation”.
+
+For a request such as “Create a new Camden prototype journey for a service to Borrow the mayor’s umbrella”, ask this intake question before implementing it. Once the information is supplied, translate it into a journey map showing each page, purpose, inferred GOV.UK/Camden component, validation, saved answer, next route, and branch. State assumptions and ask for confirmation when an uncertainty could change the page structure or interaction pattern. If the initial brief already contains this information, skip the intake question and move to the journey proposal.
+
+If the page list, sketch, screenshot, wireframe, or journey map is ambiguous, ask focused clarification questions before coding. Prioritise ambiguities that could change:
+
+- the component type, such as one choice versus multiple choices, date input versus text input, or short answer versus long answer
+- whether a field is required or optional
+- the page sequence, eligibility outcome, or branch
+- whether a page needs a Check answers or confirmation step
+
+Ask one plain-language question for each important ambiguity, for example: “Can the user choose more than one option?” or “Should the user leave the service if they answer no?” Do not invent a visual or interaction detail that is unclear in the supplied material. If an ambiguity does not affect the journey or accessibility, make a sensible assumption and record it in the proposal instead of interrupting the user with a question.
+
 ## Implementing a journey
 
 Use the existing architecture:
