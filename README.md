@@ -104,3 +104,29 @@ The important files for generated transactional journeys are:
 - `app/views/layouts/main.njk`
 - `app/views/macros/forms.njk`
 - `app/views/<journey-name>/*.njk`
+
+## Generate a content specification
+
+Generate a Markdown content specification from a journey with:
+
+```sh
+node scripts/generate-content-spec.js
+```
+
+The command automatically selects the journey when the kit contains exactly one non-example journey. If there are several, name the journey explicitly:
+
+```sh
+node scripts/generate-content-spec.js --journey missed-bin --format both
+```
+
+To try the generator with one of the bundled examples, run:
+
+```sh
+node scripts/generate-content-spec.js --journey complaints
+```
+
+Markdown is the default because it preserves the relationship between a radio or checkbox option and any fields it conditionally reveals. Use `--format csv` or `--format both` when a spreadsheet version is also needed.
+
+The Markdown output also groups summary-list rows and actions, details content, and simple accordion and tab sections.
+
+Files are written to `content-specs` with a revision number and generation time. Run `node scripts/generate-content-spec.js --help` for all options. The script is self-contained, so it can be copied into the `scripts` folder of an older version of the kit.
