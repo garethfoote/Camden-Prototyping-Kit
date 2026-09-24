@@ -91,11 +91,13 @@ Read:
 
 Use these live Camden pages as concrete references when building a form page:
 
+- [Header, back link and first heading spacing: Housing advocacy UAT page](https://uat.housing-advocacy-form.es.lbcamden.net/who-is-staring-this-form)
 - [Page without hint text: Who is starting this form?](https://nominate-housing-advocate.forms.camden.gov.uk/who-is-staring-this-form)
 - [Page with hint text: Are you a tenant or housing applicant?](https://nominate-housing-advocate.forms.camden.gov.uk/person-requesting-advocacy/application-type)
 
 These examples illustrate the structure and use of the frontend library rather than fixed pixel values. For both types of page:
 
+- Use the UAT page as the visual reference for the vertical rhythm from the prototype/header area to the back link and then to the first page heading. Keep those elements in that order and use the existing main-wrapper and utility spacing rather than adding arbitrary gaps.
 - Keep the content in the standard hierarchy: `govuk-main-wrapper`, `govuk-width-container`, `govuk-grid-row`, and `govuk-grid-column-two-thirds-from-desktop`.
 - Keep the question, controls, and `Continue` button aligned to the same two-thirds content column.
 - Use the existing `govuk-!-margin-top-4` and `govuk-!-margin-top-7` utility classes where the page pattern calls for them. Do not replace them with guessed or page-specific margins.
@@ -194,5 +196,14 @@ After changing code:
 2. Check the changed routes locally when possible, including the error state for new form pages.
 3. Confirm that the relevant page, back link, branch, check answers page, and confirmation page load.
 4. Tell the designer what changed, what assumptions remain, and which local URL or pages to review.
+
+When creating a prototype or starting the local server for the first time, do not report a URL just because the start command has printed one. Treat the server as ready only after:
+
+1. Dependencies are installed and the asset build completes successfully.
+2. The server process is still running in a persistent terminal.
+3. A request to the actual address returns successfully, including the homepage and the new journey start page.
+4. Any fallback port, such as `3010`, is checked and reported accurately if `3000` is busy.
+
+If startup fails, inspect the terminal output, fix or report the specific blocker, and retry the smoke check. Do not give the designer a “working” URL until it has been tested. Keep the server terminal open while the designer reviews the prototype, and tell them how to stop it with `Control+C`.
 
 Keep publishing under the designer's control. When the prototype is ready to share, use `PUBLISHING.md` and GitHub Desktop; do not push service-specific work back to the original prototype kit repository.
