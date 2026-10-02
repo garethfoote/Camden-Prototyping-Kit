@@ -1,0 +1,14 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary, textInput %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "Borrow equipment for a community event" %}
+{% block content %}<div class="govuk-width-container">
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<h1 class="govuk-heading-xl">Borrow equipment for a community event</h1>
+<p class="govuk-body">This fictional example lets you request one piece of equipment for an event in Camden. You can collect it or ask for delivery.</p>{{ LBCamdenButton({text: "Start now", href: "/event-equipment/eligibility", isStartButton: true}) }}
+</div>
+</div>
+</div>{% endblock %}

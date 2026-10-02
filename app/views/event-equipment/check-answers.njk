@@ -1,0 +1,72 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary, textInput %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "Check your answers" %}
+{% set backLink = "/event-equipment/equipment" %}
+{% if data.equipment == "Gazebo" %}{% set backLink = "/event-equipment/gazebo-location" %}{% endif %}
+{% if data.gazeboLocation == "Camden park" %}{% set backLink = "/event-equipment/park-permission" %}{% endif %}
+{% block beforeContent %}<div class="govuk-width-container">
+<a class="govuk-back-link" href="{{ backLink }}">Back</a>
+</div>{% endblock %}
+{% block content %}<div class="govuk-width-container">
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<h1 class="govuk-heading-xl">Check your answers</h1>
+<form action="/event-equipment/check-answers" method="post" novalidate>
+<dl class="govuk-summary-list">
+<div class="govuk-summary-list__row">
+<dt class="govuk-summary-list__key">Event in Camden</dt>
+<dd class="govuk-summary-list__value">{{ data.equipmentEligible }}</dd>
+<dd class="govuk-summary-list__actions">
+<a class="govuk-link" href="/event-equipment/eligibility">Change<span class="govuk-visually-hidden"> event location</span>
+</a>
+</dd>
+</div>
+<div class="govuk-summary-list__row">
+<dt class="govuk-summary-list__key">Collection or delivery</dt>
+<dd class="govuk-summary-list__value">{{ data.equipmentFulfilment }}</dd>
+<dd class="govuk-summary-list__actions">
+<a class="govuk-link" href="/event-equipment/fulfilment">Change<span class="govuk-visually-hidden"> collection or delivery</span>
+</a>
+</dd>
+</div>
+{% if data.equipmentFulfilment == "Delivery" %}<div class="govuk-summary-list__row">
+<dt class="govuk-summary-list__key">Delivery address</dt>
+<dd class="govuk-summary-list__value">{{ data.equipmentAddress }}</dd>
+<dd class="govuk-summary-list__actions">
+<a class="govuk-link" href="/event-equipment/delivery">Change<span class="govuk-visually-hidden"> delivery address</span>
+</a>
+</dd>
+</div>{% endif %}
+<div class="govuk-summary-list__row">
+<dt class="govuk-summary-list__key">Contact details</dt>
+<dd class="govuk-summary-list__value">{{ data.equipmentEmail if data.equipmentContact == "Email" else data.equipmentPhone }}</dd>
+<dd class="govuk-summary-list__actions">
+<a class="govuk-link" href="/event-equipment/contact">Change<span class="govuk-visually-hidden"> contact details</span>
+</a>
+</dd>
+</div>
+<div class="govuk-summary-list__row">
+<dt class="govuk-summary-list__key">Equipment</dt>
+<dd class="govuk-summary-list__value">{{ data.equipment }}</dd>
+<dd class="govuk-summary-list__actions">
+<a class="govuk-link" href="/event-equipment/equipment">Change<span class="govuk-visually-hidden"> equipment</span>
+</a>
+</dd>
+</div>
+{% if data.equipment == "Gazebo" %}<div class="govuk-summary-list__row">
+<dt class="govuk-summary-list__key">Gazebo location</dt>
+<dd class="govuk-summary-list__value">{{ data.gazeboLocation }}</dd>
+<dd class="govuk-summary-list__actions">
+<a class="govuk-link" href="/event-equipment/gazebo-location">Change<span class="govuk-visually-hidden"> gazebo location</span>
+</a>
+</dd>
+</div>{% endif %}
+</dl>
+{{ LBCamdenButton({text: "Send request", preventDoubleClick: true}) }}
+</form>
+</div>
+</div>
+</div>{% endblock %}

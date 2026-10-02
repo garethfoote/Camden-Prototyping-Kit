@@ -67,7 +67,7 @@ See [PUBLISHING.md](PUBLISHING.md) for GitHub publishing, Render deployment and 
 
 ## Add a page
 
-1. Create a Nunjucks view in `app/views`.
+1. Create a separate, descriptively named Nunjucks view in `app/views/<journey>` for each distinct page. Keep page copy and questions in that file; reuse layouts and component macros.
 2. Add a GET route in `app/routes.js`.
 3. For forms, add a POST route that validates input, writes to `req.session.data`, then redirects.
 
@@ -105,7 +105,7 @@ The important files for generated transactional journeys are:
 - `app/views/macros/forms.njk`
 - `app/views/<journey-name>/*.njk`
 
-## Generate a content specification
+## Generate a content specification and journey SVG
 
 Generate a Markdown content specification from a journey with:
 
@@ -129,4 +129,6 @@ Markdown is the default because it preserves the relationship between a radio or
 
 The Markdown output also groups summary-list rows and actions, details content, and simple accordion and tab sections.
 
-Files are written to `content-specs` with a revision number and generation time. Run `node scripts/generate-content-spec.js --help` for all options. The script is self-contained, so it can be copied into the `scripts` folder of an older version of the kit.
+SVG and JSON are generated alongside the document. For a verified branching example, run `node scripts/generate-content-spec.js --journey event-equipment --strict`. The example covers eligibility, collection or delivery, contact details, and a gazebo location branch. See [EXPORTING.md](EXPORTING.md) for scenario coverage, limitations and testing.
+
+Files are written to `content-specs` with a revision number and generation time. Run `node scripts/generate-content-spec.js --help` for all options. The exporter now includes `scripts/lib/journey-export.js`; copy that supporting module too when transferring it.

@@ -1,0 +1,35 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary, textInput %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "How should we contact you?" %}
+{% block beforeContent %}<div class="govuk-width-container">
+<a class="govuk-back-link" href="{{ "/event-equipment/delivery" if data.equipmentFulfilment == "Delivery" else "/event-equipment/collection" }}">Back</a>
+</div>{% endblock %}
+{% block content %}<div class="govuk-width-container">
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<h1 class="govuk-heading-xl">How should we contact you?</h1>
+<form action="/event-equipment/contact" method="post" novalidate>
+{% if data.equipmentFulfilment == "Delivery" %}<p class="govuk-body">We will contact you to arrange delivery.</p>{% else %}<p class="govuk-body">We will contact you when your equipment is ready to collect.</p>{% endif %}<div class="govuk-form-group{% if errors.equipmentContact %} govuk-form-group--error{% endif %}">
+<fieldset class="govuk-fieldset"{% if errors.equipmentContact %} aria-describedby="equipmentContact-error"{% endif %}>
+<legend class="govuk-fieldset__legend govuk-visually-hidden">How should we contact you?</legend>{{ fieldError("equipmentContact", errors.equipmentContact) }}<div class="govuk-radios" data-module="govuk-radios">
+<div class="govuk-radios__item">
+<input class="govuk-radios__input" id="equipmentContact" name="equipmentContact" type="radio" value="Email" {% if data.equipmentContact == "Email" %}checked{% endif %} data-aria-controls="conditional-equipmentContact">
+<label class="govuk-label govuk-radios__label" for="equipmentContact">Email</label>
+</div>
+<div id="conditional-equipmentContact" class="govuk-radios__conditional{% if data.equipmentContact != "Email" %} govuk-radios__conditional--hidden{% endif %}">{{ textInput({name: "equipmentEmail", label: "Email address", type: "email", value: data.equipmentEmail, error: errors.equipmentEmail}) }}</div>
+<div class="govuk-radios__item">
+<input class="govuk-radios__input" id="equipmentContact-1" name="equipmentContact" type="radio" value="Phone" {% if data.equipmentContact == "Phone" %}checked{% endif %} data-aria-controls="conditional-equipmentContact-1">
+<label class="govuk-label govuk-radios__label" for="equipmentContact-1">Phone</label>
+</div>
+<div id="conditional-equipmentContact-1" class="govuk-radios__conditional{% if data.equipmentContact != "Phone" %} govuk-radios__conditional--hidden{% endif %}">{{ textInput({name: "equipmentPhone", label: "Phone number", type: "tel", value: data.equipmentPhone, error: errors.equipmentPhone}) }}</div>
+</div>
+</fieldset>
+</div>
+{{ LBCamdenButton({text: "Continue", preventDoubleClick: true}) }}
+</form>
+</div>
+</div>
+</div>{% endblock %}

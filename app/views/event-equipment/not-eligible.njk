@@ -1,0 +1,18 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary, textInput %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "This example service is for events in Camden" %}
+{% block beforeContent %}<div class="govuk-width-container">
+<a class="govuk-back-link" href="/event-equipment/eligibility">Back</a>
+</div>{% endblock %}
+{% block content %}<div class="govuk-width-container">
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<h1 class="govuk-heading-xl">This example service is for events in Camden</h1>
+<p class="govuk-body">You cannot continue with a request for an event outside Camden.</p>
+<a class="govuk-link" href="/event-equipment/eligibility">Change your answer</a>
+</div>
+</div>
+</div>{% endblock %}

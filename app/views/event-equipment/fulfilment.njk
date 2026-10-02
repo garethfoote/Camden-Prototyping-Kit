@@ -1,0 +1,33 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary, textInput %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "How will you get the equipment?" %}
+{% block beforeContent %}<div class="govuk-width-container">
+<a class="govuk-back-link" href="/event-equipment/eligibility">Back</a>
+</div>{% endblock %}
+{% block content %}<div class="govuk-width-container">
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<h1 class="govuk-heading-xl">How will you get the equipment?</h1>
+<form action="/event-equipment/fulfilment" method="post" novalidate>
+<div class="govuk-form-group{% if errors.equipmentFulfilment %} govuk-form-group--error{% endif %}">
+<fieldset class="govuk-fieldset"{% if errors.equipmentFulfilment %} aria-describedby="equipmentFulfilment-error"{% endif %}>
+<legend class="govuk-fieldset__legend govuk-visually-hidden">How will you get the equipment?</legend>{{ fieldError("equipmentFulfilment", errors.equipmentFulfilment) }}<div class="govuk-radios" data-module="govuk-radios">
+<div class="govuk-radios__item">
+<input class="govuk-radios__input" id="equipmentFulfilment" name="equipmentFulfilment" type="radio" value="Collection" {% if data.equipmentFulfilment == "Collection" %}checked{% endif %}>
+<label class="govuk-label govuk-radios__label" for="equipmentFulfilment">Collect it</label>
+</div>
+<div class="govuk-radios__item">
+<input class="govuk-radios__input" id="equipmentFulfilment-1" name="equipmentFulfilment" type="radio" value="Delivery" {% if data.equipmentFulfilment == "Delivery" %}checked{% endif %}>
+<label class="govuk-label govuk-radios__label" for="equipmentFulfilment-1">Have it delivered</label>
+</div>
+</div>
+</fieldset>
+</div>
+{{ LBCamdenButton({text: "Continue", preventDoubleClick: true}) }}
+</form>
+</div>
+</div>
+</div>{% endblock %}

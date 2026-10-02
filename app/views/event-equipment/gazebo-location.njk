@@ -1,0 +1,18 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "Where will you use the gazebo?" %}
+{% block beforeContent %}<div class="govuk-width-container"><a class="govuk-back-link" href="/event-equipment/equipment">Back</a></div>{% endblock %}
+{% block content %}<div class="govuk-width-container"><div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<h1 class="govuk-heading-xl">Where will you use the gazebo?</h1>
+<form action="/event-equipment/gazebo-location" method="post" novalidate>
+<div class="govuk-form-group{% if errors.gazeboLocation %} govuk-form-group--error{% endif %}"><fieldset class="govuk-fieldset"{% if errors.gazeboLocation %} aria-describedby="gazeboLocation-error"{% endif %}>
+<legend class="govuk-fieldset__legend govuk-visually-hidden">Where will you use the gazebo?</legend>
+{{ fieldError("gazeboLocation", errors.gazeboLocation) }}
+<div class="govuk-radios">
+{% for choice in ["Camden park", "Other outdoor space"] %}<div class="govuk-radios__item"><input class="govuk-radios__input" id="gazeboLocation-{{ loop.index }}" name="gazeboLocation" type="radio" value="{{ choice }}" {% if data.gazeboLocation == choice %}checked{% endif %}><label class="govuk-label govuk-radios__label" for="gazeboLocation-{{ loop.index }}">{{ choice }}</label></div>{% endfor %}
+</div></fieldset></div>
+{{ LBCamdenButton({text: "Continue", preventDoubleClick: true}) }}
+</form></div></div></div>{% endblock %}

@@ -1,0 +1,2 @@
+{% macro fieldError(name, error) %}{% if error %}<p class="govuk-error-message" id="{{ name }}-error">
+<span class="govuk-visually-hidden">Error:</span> {{ error }}</p>{% endif %}{% endmacro %}

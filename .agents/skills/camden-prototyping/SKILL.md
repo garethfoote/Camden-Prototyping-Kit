@@ -15,6 +15,7 @@ Use this skill to help designers turn a service idea, journey map, sketch, or co
 4. Identify the closest existing pattern:
    - Use `app/views/permit` for a short, simple form journey.
    - Use `app/views/complaints` for a longer journey with branches or several form pages.
+   - Use `app/views/event-equipment` for branching, conditional content, validation, guarded routes, and verified content/journey exports.
 5. For a new journey, describe the proposed page sequence, branches, saved answers, and assumptions before implementing it. Ask only for information that is genuinely needed to proceed.
 
 ## New journey intake
@@ -52,6 +53,16 @@ Use the existing architecture:
 - Use Camden frontend macros, GOV.UK classes, and the existing Storybook patterns.
 - Store prototype answers in `req.session.data`.
 - Read saved answers through the Nunjucks `data` object.
+
+### Page files and designer ownership
+
+For new journeys in this kit, create one descriptively named `.njk` view file and an explicit GET route for each distinct journey page. Keep page-specific copy, questions, hints and options in that view. Keep routing, validation and saved answers in `app/routes.js`.
+
+Reuse layouts, component macros and small shared fragments. Error states, conditional content and repeated entries can remain variations of one page; they do not need separate view files. Do not introduce a generic question renderer driven by a central JavaScript page catalogue unless the designer explicitly agrees to that architecture. Do not restructure an existing data-driven prototype merely to export it; use a local adapter when appropriate.
+
+### Content and journey exports
+
+Read `EXPORTING.md` when creating or updating exports. The standard branching example has synthetic export scenarios in `scripts/export-scenarios/event-equipment.js`. Keep these as test answers and expected outcomes, never a second source for page copy or routing rules. When adding a branching page or changing a branch, add or update scenarios that exercise every destination, including relevant validation states and guarded routes. When removing a branching page or branch, remove or revise its scenarios so they do not describe retired routes or transitions. Run the content/SVG exporter with `--strict`, and report any unexercised pages or unresolved destinations. Scenario coverage is not proof of every possible combination of answers.
 
 For each form page:
 

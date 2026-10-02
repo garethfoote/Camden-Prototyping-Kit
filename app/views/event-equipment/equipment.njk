@@ -1,0 +1,24 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "What equipment do you need?" %}
+{% block beforeContent %}<div class="govuk-width-container">
+<a class="govuk-back-link" href="/event-equipment/contact">Back</a>
+</div>{% endblock %}
+{% block content %}<div class="govuk-width-container"><div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<h1 class="govuk-heading-xl">What equipment do you need?</h1>
+<form action="/event-equipment/equipment" method="post" novalidate>
+<div class="govuk-form-group{% if errors.equipment %} govuk-form-group--error{% endif %}">
+<fieldset class="govuk-fieldset"{% if errors.equipment %} aria-describedby="equipment-error"{% endif %}>
+<legend class="govuk-fieldset__legend govuk-visually-hidden">What equipment do you need?</legend>
+{{ fieldError("equipment", errors.equipment) }}
+<div class="govuk-radios">
+{% for choice in ["Tables", "Chairs", "Gazebo"] %}<div class="govuk-radios__item">
+<input class="govuk-radios__input" id="equipment-{{ loop.index }}" name="equipment" type="radio" value="{{ choice }}" {% if data.equipment == choice %}checked{% endif %}>
+<label class="govuk-label govuk-radios__label" for="equipment-{{ loop.index }}">{{ choice }}</label>
+</div>{% endfor %}
+</div></fieldset></div>
+{{ LBCamdenButton({text: "Continue", preventDoubleClick: true}) }}
+</form></div></div></div>{% endblock %}

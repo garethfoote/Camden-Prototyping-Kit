@@ -64,7 +64,10 @@ app.use(session({
 app.use((req, res, next) => {
   req.session.data = req.session.data || {}
   res.locals.data = req.session.data
-  if (req.path.startsWith('/permit')) {
+  if (req.path.startsWith('/event-equipment')) {
+    res.locals.serviceName = 'Borrow equipment for a community event'
+    res.locals.serviceHomeUrl = '/event-equipment/start'
+  } else if (req.path.startsWith('/permit')) {
     res.locals.serviceName = 'Apply for a parking permit'
     res.locals.serviceHomeUrl = '/permit/start'
   } else if (req.path.startsWith('/complaints')) {

@@ -1,0 +1,9 @@
+{% extends "layouts/main.njk" %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "Using a gazebo in a Camden park" %}
+{% block beforeContent %}<div class="govuk-width-container"><a class="govuk-back-link" href="/event-equipment/gazebo-location">Back</a></div>{% endblock %}
+{% block content %}<div class="govuk-width-container"><div class="govuk-grid-row"><div class="govuk-grid-column-two-thirds">
+<h1 class="govuk-heading-xl">Using a gazebo in a Camden park</h1>
+<p class="govuk-body">You will need permission from the park events team before using a gazebo. We will contact you about this after reviewing your request.</p>
+<form action="/event-equipment/park-permission" method="post">{{ LBCamdenButton({text: "Continue", preventDoubleClick: true}) }}</form>
+</div></div></div>{% endblock %}

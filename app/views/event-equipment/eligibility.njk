@@ -1,0 +1,33 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary, textInput %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "Is your event in Camden?" %}
+{% block beforeContent %}<div class="govuk-width-container">
+<a class="govuk-back-link" href="/event-equipment/start">Back</a>
+</div>{% endblock %}
+{% block content %}<div class="govuk-width-container">
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<h1 class="govuk-heading-xl">Is your event in Camden?</h1>
+<form action="/event-equipment/eligibility" method="post" novalidate>
+<div class="govuk-form-group{% if errors.equipmentEligible %} govuk-form-group--error{% endif %}">
+<fieldset class="govuk-fieldset"{% if errors.equipmentEligible %} aria-describedby="equipmentEligible-error"{% endif %}>
+<legend class="govuk-fieldset__legend govuk-visually-hidden">Is your event in Camden?</legend>{{ fieldError("equipmentEligible", errors.equipmentEligible) }}<div class="govuk-radios" data-module="govuk-radios">
+<div class="govuk-radios__item">
+<input class="govuk-radios__input" id="equipmentEligible" name="equipmentEligible" type="radio" value="Yes" {% if data.equipmentEligible == "Yes" %}checked{% endif %}>
+<label class="govuk-label govuk-radios__label" for="equipmentEligible">Yes</label>
+</div>
+<div class="govuk-radios__item">
+<input class="govuk-radios__input" id="equipmentEligible-1" name="equipmentEligible" type="radio" value="No" {% if data.equipmentEligible == "No" %}checked{% endif %}>
+<label class="govuk-label govuk-radios__label" for="equipmentEligible-1">No</label>
+</div>
+</div>
+</fieldset>
+</div>
+{{ LBCamdenButton({text: "Continue", preventDoubleClick: true}) }}
+</form>
+</div>
+</div>
+</div>{% endblock %}

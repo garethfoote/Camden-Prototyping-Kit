@@ -1,0 +1,2146 @@
+{
+  "journey": "event-equipment",
+  "pages": [
+    {
+      "backLinks": [],
+      "bodyContent": [
+        "This fictional example lets you request one piece of equipment for an event in Camden. You can collect it or ask for delivery."
+      ],
+      "browserTitle": "Borrow equipment for a community event",
+      "buttons": [
+        {
+          "destination": "/event-equipment/eligibility",
+          "position": 14,
+          "text": "Start now",
+          "type": "link button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "text",
+          "position": 11,
+          "tag": "p",
+          "text": "This fictional example lets you request one piece of equipment for an event in Camden. You can collect it or ask for delivery."
+        },
+        {
+          "kind": "button",
+          "position": 14,
+          "button": {
+            "destination": "/event-equipment/eligibility",
+            "position": 14,
+            "text": "Start now",
+            "type": "link button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "Borrow equipment for a community event"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/eligibility"
+      ],
+      "order": 1,
+      "pageName": "start",
+      "pageType": "start page",
+      "primaryHeading": "Borrow equipment for a community event",
+      "questions": [],
+      "route": "/event-equipment/start",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/start.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [],
+      "variants": []
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/start",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [],
+      "browserTitle": "Is your event in Camden?",
+      "buttons": [
+        {
+          "destination": "",
+          "position": 40,
+          "text": "Continue",
+          "type": "submit button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "question",
+          "position": 23,
+          "question": {
+            "componentType": "radio",
+            "condition": "",
+            "conditionalParents": [],
+            "fieldName": "equipmentEligible",
+            "group": "",
+            "hint": "",
+            "characterLimit": "",
+            "line": 19,
+            "options": [
+              {
+                "label": "Yes",
+                "value": "Yes"
+              },
+              {
+                "label": "No",
+                "value": "No"
+              }
+            ],
+            "position": 23,
+            "question": "Is your event in Camden?",
+            "required": "See validation cases",
+            "validationMessages": [
+              "Select whether your event is in Camden"
+            ]
+          }
+        },
+        {
+          "kind": "button",
+          "position": 40,
+          "button": {
+            "destination": "",
+            "position": 40,
+            "text": "Continue",
+            "type": "submit button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "Is your event in Camden?"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/fulfilment",
+        "/event-equipment/not-eligible"
+      ],
+      "order": 2,
+      "pageName": "eligibility",
+      "pageType": "question page",
+      "primaryHeading": "Is your event in Camden?",
+      "questions": [
+        {
+          "componentType": "radio",
+          "condition": "",
+          "conditionalParents": [],
+          "fieldName": "equipmentEligible",
+          "group": "",
+          "hint": "",
+          "characterLimit": "",
+          "line": 19,
+          "options": [
+            {
+              "label": "Yes",
+              "value": "Yes"
+            },
+            {
+              "label": "No",
+              "value": "No"
+            }
+          ],
+          "position": 23,
+          "question": "Is your event in Camden?",
+          "required": "See validation cases",
+          "validationMessages": [
+            "Select whether your event is in Camden"
+          ]
+        }
+      ],
+      "route": "/event-equipment/eligibility",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/eligibility.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [
+        {
+          "label": "Missing required answer",
+          "errors": {
+            "equipmentEligible": "Select whether your event is in Camden"
+          }
+        }
+      ],
+      "variants": []
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/eligibility",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [
+        "You cannot continue with a request for an event outside Camden."
+      ],
+      "browserTitle": "This example service is for events in Camden",
+      "buttons": [],
+      "contentSequence": [
+        {
+          "kind": "text",
+          "position": 11,
+          "tag": "p",
+          "text": "You cannot continue with a request for an event outside Camden."
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "This example service is for events in Camden"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/eligibility"
+      ],
+      "order": 3,
+      "pageName": "not-eligible",
+      "pageType": "content page",
+      "primaryHeading": "This example service is for events in Camden",
+      "questions": [],
+      "route": "/event-equipment/not-eligible",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/not-eligible.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [],
+      "variants": []
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/eligibility",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [],
+      "browserTitle": "How will you get the equipment?",
+      "buttons": [
+        {
+          "destination": "",
+          "position": 40,
+          "text": "Continue",
+          "type": "submit button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "question",
+          "position": 23,
+          "question": {
+            "componentType": "radio",
+            "condition": "",
+            "conditionalParents": [],
+            "fieldName": "equipmentFulfilment",
+            "group": "",
+            "hint": "",
+            "characterLimit": "",
+            "line": 19,
+            "options": [
+              {
+                "label": "Collect it",
+                "value": "Collection"
+              },
+              {
+                "label": "Have it delivered",
+                "value": "Delivery"
+              }
+            ],
+            "position": 23,
+            "question": "How will you get the equipment?",
+            "required": "See validation cases",
+            "validationMessages": [
+              "Select collection or delivery"
+            ]
+          }
+        },
+        {
+          "kind": "button",
+          "position": 40,
+          "button": {
+            "destination": "",
+            "position": 40,
+            "text": "Continue",
+            "type": "submit button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "How will you get the equipment?"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/collection",
+        "/event-equipment/delivery"
+      ],
+      "order": 4,
+      "pageName": "fulfilment",
+      "pageType": "question page",
+      "primaryHeading": "How will you get the equipment?",
+      "questions": [
+        {
+          "componentType": "radio",
+          "condition": "",
+          "conditionalParents": [],
+          "fieldName": "equipmentFulfilment",
+          "group": "",
+          "hint": "",
+          "characterLimit": "",
+          "line": 19,
+          "options": [
+            {
+              "label": "Collect it",
+              "value": "Collection"
+            },
+            {
+              "label": "Have it delivered",
+              "value": "Delivery"
+            }
+          ],
+          "position": 23,
+          "question": "How will you get the equipment?",
+          "required": "See validation cases",
+          "validationMessages": [
+            "Select collection or delivery"
+          ]
+        }
+      ],
+      "route": "/event-equipment/fulfilment",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/fulfilment.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [
+        {
+          "label": "Missing required answer",
+          "errors": {
+            "equipmentFulfilment": "Select collection or delivery"
+          }
+        }
+      ],
+      "variants": []
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/fulfilment",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [
+        "Collect your equipment from the example community centre. We will confirm the collection time after reviewing your request."
+      ],
+      "browserTitle": "Collecting your equipment",
+      "buttons": [
+        {
+          "destination": "",
+          "position": 16,
+          "text": "Continue",
+          "type": "submit button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "text",
+          "position": 13,
+          "tag": "p",
+          "text": "Collect your equipment from the example community centre. We will confirm the collection time after reviewing your request."
+        },
+        {
+          "kind": "button",
+          "position": 16,
+          "button": {
+            "destination": "",
+            "position": 16,
+            "text": "Continue",
+            "type": "submit button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "Collecting your equipment"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/contact"
+      ],
+      "order": 5,
+      "pageName": "collection",
+      "pageType": "form page",
+      "primaryHeading": "Collecting your equipment",
+      "questions": [],
+      "route": "/event-equipment/collection",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/collection.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [],
+      "variants": []
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/fulfilment",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [],
+      "browserTitle": "Where should we deliver the equipment?",
+      "buttons": [
+        {
+          "destination": "",
+          "position": 21,
+          "text": "Continue",
+          "type": "submit button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "question",
+          "position": 18,
+          "question": {
+            "componentType": "text",
+            "condition": "",
+            "conditionalParents": [],
+            "fieldName": "equipmentAddress",
+            "group": "",
+            "hint": "",
+            "characterLimit": "",
+            "line": 15,
+            "options": [],
+            "position": 18,
+            "question": "Delivery address",
+            "required": "See validation cases",
+            "validationMessages": [
+              "Enter the delivery address"
+            ]
+          }
+        },
+        {
+          "kind": "button",
+          "position": 21,
+          "button": {
+            "destination": "",
+            "position": 21,
+            "text": "Continue",
+            "type": "submit button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "Where should we deliver the equipment?"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/contact"
+      ],
+      "order": 6,
+      "pageName": "delivery",
+      "pageType": "question page",
+      "primaryHeading": "Where should we deliver the equipment?",
+      "questions": [
+        {
+          "componentType": "text",
+          "condition": "",
+          "conditionalParents": [],
+          "fieldName": "equipmentAddress",
+          "group": "",
+          "hint": "",
+          "characterLimit": "",
+          "line": 15,
+          "options": [],
+          "position": 18,
+          "question": "Delivery address",
+          "required": "See validation cases",
+          "validationMessages": [
+            "Enter the delivery address"
+          ]
+        }
+      ],
+      "route": "/event-equipment/delivery",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/delivery.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [
+        {
+          "label": "Missing required answer",
+          "errors": {
+            "equipmentAddress": "Enter the delivery address"
+          }
+        }
+      ],
+      "variants": []
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/collection",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [
+        "We will contact you when your equipment is ready to collect."
+      ],
+      "browserTitle": "How should we contact you?",
+      "buttons": [
+        {
+          "destination": "",
+          "position": 64,
+          "text": "Continue",
+          "type": "submit button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "text",
+          "position": 13,
+          "tag": "p",
+          "text": "We will contact you when your equipment is ready to collect."
+        },
+        {
+          "kind": "question",
+          "position": 25,
+          "question": {
+            "componentType": "radio",
+            "condition": "",
+            "conditionalParents": [],
+            "fieldName": "equipmentContact",
+            "group": "",
+            "hint": "",
+            "characterLimit": "",
+            "line": 19,
+            "options": [
+              {
+                "label": "Email",
+                "value": "Email"
+              },
+              {
+                "label": "Phone",
+                "value": "Phone"
+              }
+            ],
+            "position": 25,
+            "question": "How should we contact you?",
+            "required": "See validation cases",
+            "validationMessages": [
+              "Select how we should contact you"
+            ]
+          }
+        },
+        {
+          "kind": "button",
+          "position": 64,
+          "button": {
+            "destination": "",
+            "position": 64,
+            "text": "Continue",
+            "type": "submit button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "How should we contact you?"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/equipment"
+      ],
+      "order": 7,
+      "pageName": "contact",
+      "pageType": "question page",
+      "primaryHeading": "How should we contact you?",
+      "questions": [
+        {
+          "componentType": "radio",
+          "condition": "",
+          "conditionalParents": [],
+          "fieldName": "equipmentContact",
+          "group": "",
+          "hint": "",
+          "characterLimit": "",
+          "line": 19,
+          "options": [
+            {
+              "label": "Email",
+              "value": "Email"
+            },
+            {
+              "label": "Phone",
+              "value": "Phone"
+            }
+          ],
+          "position": 25,
+          "question": "How should we contact you?",
+          "required": "See validation cases",
+          "validationMessages": [
+            "Select how we should contact you"
+          ]
+        },
+        {
+          "componentType": "email",
+          "condition": "Email selected (Email)",
+          "conditionalParents": [
+            {
+              "controlledId": "conditional-equipmentContact",
+              "optionLabel": "Email",
+              "optionValue": "Email",
+              "parentFieldName": "equipmentContact"
+            }
+          ],
+          "fieldName": "equipmentEmail",
+          "group": "How should we contact you?",
+          "hint": "",
+          "characterLimit": "",
+          "line": 22,
+          "options": [],
+          "position": 38,
+          "question": "Email address",
+          "required": "When shown (see validation cases)",
+          "validationMessages": [
+            "Enter your email address",
+            "Enter an email address in the correct format"
+          ]
+        },
+        {
+          "componentType": "tel",
+          "condition": "Phone selected (Phone)",
+          "conditionalParents": [
+            {
+              "controlledId": "conditional-equipmentContact-1",
+              "optionLabel": "Phone",
+              "optionValue": "Phone",
+              "parentFieldName": "equipmentContact"
+            }
+          ],
+          "fieldName": "equipmentPhone",
+          "group": "How should we contact you?",
+          "hint": "",
+          "characterLimit": "",
+          "line": 27,
+          "options": [],
+          "position": 57,
+          "question": "Phone number",
+          "required": "When shown (see validation cases)",
+          "validationMessages": [
+            "Enter your phone number"
+          ]
+        }
+      ],
+      "route": "/event-equipment/contact",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/contact.njk",
+      "warnings": [],
+      "stateLabel": "Collection — email or phone",
+      "validationCases": [
+        {
+          "label": "Missing required answer",
+          "errors": {
+            "equipmentContact": "Select how we should contact you"
+          }
+        },
+        {
+          "label": "Email selected without address",
+          "errors": {
+            "equipmentEmail": "Enter your email address"
+          }
+        },
+        {
+          "label": "Email has invalid format",
+          "errors": {
+            "equipmentEmail": "Enter an email address in the correct format"
+          }
+        },
+        {
+          "label": "Phone selected without number",
+          "errors": {
+            "equipmentPhone": "Enter your phone number"
+          }
+        }
+      ],
+      "variants": [
+        {
+          "backLinks": [
+            {
+              "destination": "/event-equipment/delivery",
+              "text": "Back"
+            }
+          ],
+          "bodyContent": [
+            "We will contact you to arrange delivery."
+          ],
+          "browserTitle": "How should we contact you?",
+          "buttons": [
+            {
+              "destination": "",
+              "position": 64,
+              "text": "Continue",
+              "type": "submit button"
+            }
+          ],
+          "contentSequence": [
+            {
+              "kind": "text",
+              "position": 13,
+              "tag": "p",
+              "text": "We will contact you to arrange delivery."
+            },
+            {
+              "kind": "question",
+              "position": 25,
+              "question": {
+                "componentType": "radio",
+                "condition": "",
+                "conditionalParents": [],
+                "fieldName": "equipmentContact",
+                "group": "",
+                "hint": "",
+                "characterLimit": "",
+                "line": 19,
+                "options": [
+                  {
+                    "label": "Email",
+                    "value": "Email"
+                  },
+                  {
+                    "label": "Phone",
+                    "value": "Phone"
+                  }
+                ],
+                "position": 25,
+                "question": "How should we contact you?",
+                "required": "Not specified",
+                "validationMessages": []
+              }
+            },
+            {
+              "kind": "button",
+              "position": 64,
+              "button": {
+                "destination": "",
+                "position": 64,
+                "text": "Continue",
+                "type": "submit button"
+              }
+            }
+          ],
+          "accordions": [],
+          "details": [],
+          "headings": [
+            "How should we contact you?"
+          ],
+          "journey": "event-equipment",
+          "nextRoutes": [],
+          "order": "7.1",
+          "pageName": "contact",
+          "pageType": "question page",
+          "primaryHeading": "How should we contact you?",
+          "questions": [
+            {
+              "componentType": "radio",
+              "condition": "",
+              "conditionalParents": [],
+              "fieldName": "equipmentContact",
+              "group": "",
+              "hint": "",
+              "characterLimit": "",
+              "line": 19,
+              "options": [
+                {
+                  "label": "Email",
+                  "value": "Email"
+                },
+                {
+                  "label": "Phone",
+                  "value": "Phone"
+                }
+              ],
+              "position": 25,
+              "question": "How should we contact you?",
+              "required": "Not specified",
+              "validationMessages": []
+            },
+            {
+              "componentType": "email",
+              "condition": "Email selected (Email)",
+              "conditionalParents": [
+                {
+                  "controlledId": "conditional-equipmentContact",
+                  "optionLabel": "Email",
+                  "optionValue": "Email",
+                  "parentFieldName": "equipmentContact"
+                }
+              ],
+              "fieldName": "equipmentEmail",
+              "group": "How should we contact you?",
+              "hint": "",
+              "characterLimit": "",
+              "line": 22,
+              "options": [],
+              "position": 38,
+              "question": "Email address",
+              "required": "Not specified",
+              "validationMessages": []
+            },
+            {
+              "componentType": "tel",
+              "condition": "Phone selected (Phone)",
+              "conditionalParents": [
+                {
+                  "controlledId": "conditional-equipmentContact-1",
+                  "optionLabel": "Phone",
+                  "optionValue": "Phone",
+                  "parentFieldName": "equipmentContact"
+                }
+              ],
+              "fieldName": "equipmentPhone",
+              "group": "How should we contact you?",
+              "hint": "",
+              "characterLimit": "",
+              "line": 27,
+              "options": [],
+              "position": 57,
+              "question": "Phone number",
+              "required": "Not specified",
+              "validationMessages": []
+            }
+          ],
+          "route": "/event-equipment/contact",
+          "routeLine": 1,
+          "sourceLine": 5,
+          "sessionDataKeys": [],
+          "summaryLabels": [],
+          "summaryLists": [],
+          "tabs": [],
+          "template": "event-equipment/contact.njk",
+          "warnings": [],
+          "stateLabel": "Delivery — different introductory copy",
+          "validationCases": []
+        }
+      ]
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/contact",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [],
+      "browserTitle": "What equipment do you need?",
+      "buttons": [
+        {
+          "destination": "",
+          "position": 43,
+          "text": "Continue",
+          "type": "submit button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "question",
+          "position": 22,
+          "question": {
+            "componentType": "radio",
+            "condition": "",
+            "conditionalParents": [],
+            "fieldName": "equipment",
+            "group": "",
+            "hint": "",
+            "characterLimit": "",
+            "line": 19,
+            "options": [
+              {
+                "label": "Tables",
+                "value": "Tables"
+              },
+              {
+                "label": "Chairs",
+                "value": "Chairs"
+              },
+              {
+                "label": "Gazebo",
+                "value": "Gazebo"
+              }
+            ],
+            "position": 22,
+            "question": "What equipment do you need?",
+            "required": "See validation cases",
+            "validationMessages": [
+              "Select the equipment you need"
+            ]
+          }
+        },
+        {
+          "kind": "button",
+          "position": 43,
+          "button": {
+            "destination": "",
+            "position": 43,
+            "text": "Continue",
+            "type": "submit button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "What equipment do you need?"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/check-answers",
+        "/event-equipment/gazebo-location"
+      ],
+      "order": 8,
+      "pageName": "equipment",
+      "pageType": "question page",
+      "primaryHeading": "What equipment do you need?",
+      "questions": [
+        {
+          "componentType": "radio",
+          "condition": "",
+          "conditionalParents": [],
+          "fieldName": "equipment",
+          "group": "",
+          "hint": "",
+          "characterLimit": "",
+          "line": 19,
+          "options": [
+            {
+              "label": "Tables",
+              "value": "Tables"
+            },
+            {
+              "label": "Chairs",
+              "value": "Chairs"
+            },
+            {
+              "label": "Gazebo",
+              "value": "Gazebo"
+            }
+          ],
+          "position": 22,
+          "question": "What equipment do you need?",
+          "required": "See validation cases",
+          "validationMessages": [
+            "Select the equipment you need"
+          ]
+        }
+      ],
+      "route": "/event-equipment/equipment",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/equipment.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [
+        {
+          "label": "Missing required answer",
+          "errors": {
+            "equipment": "Select the equipment you need"
+          }
+        }
+      ],
+      "variants": []
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/equipment",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [],
+      "browserTitle": "Where will you use the gazebo?",
+      "buttons": [
+        {
+          "destination": "",
+          "position": 29,
+          "text": "Continue",
+          "type": "submit button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "question",
+          "position": 20,
+          "question": {
+            "componentType": "radio",
+            "condition": "",
+            "conditionalParents": [],
+            "fieldName": "gazeboLocation",
+            "group": "",
+            "hint": "",
+            "characterLimit": "",
+            "line": 15,
+            "options": [
+              {
+                "label": "Camden park",
+                "value": "Camden park"
+              },
+              {
+                "label": "Other outdoor space",
+                "value": "Other outdoor space"
+              }
+            ],
+            "position": 20,
+            "question": "Where will you use the gazebo?",
+            "required": "See validation cases",
+            "validationMessages": [
+              "Select where you will use the gazebo"
+            ]
+          }
+        },
+        {
+          "kind": "button",
+          "position": 29,
+          "button": {
+            "destination": "",
+            "position": 29,
+            "text": "Continue",
+            "type": "submit button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "Where will you use the gazebo?"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/park-permission",
+        "/event-equipment/check-answers"
+      ],
+      "order": 9,
+      "pageName": "gazebo-location",
+      "pageType": "question page",
+      "primaryHeading": "Where will you use the gazebo?",
+      "questions": [
+        {
+          "componentType": "radio",
+          "condition": "",
+          "conditionalParents": [],
+          "fieldName": "gazeboLocation",
+          "group": "",
+          "hint": "",
+          "characterLimit": "",
+          "line": 15,
+          "options": [
+            {
+              "label": "Camden park",
+              "value": "Camden park"
+            },
+            {
+              "label": "Other outdoor space",
+              "value": "Other outdoor space"
+            }
+          ],
+          "position": 20,
+          "question": "Where will you use the gazebo?",
+          "required": "See validation cases",
+          "validationMessages": [
+            "Select where you will use the gazebo"
+          ]
+        }
+      ],
+      "route": "/event-equipment/gazebo-location",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/gazebo-location.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [
+        {
+          "label": "Missing required answer",
+          "errors": {
+            "gazeboLocation": "Select where you will use the gazebo"
+          }
+        }
+      ],
+      "variants": []
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/gazebo-location",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [
+        "You will need permission from the park events team before using a gazebo. We will contact you about this after reviewing your request."
+      ],
+      "browserTitle": "Using a gazebo in a Camden park",
+      "buttons": [
+        {
+          "destination": "",
+          "position": 14,
+          "text": "Continue",
+          "type": "submit button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "text",
+          "position": 9,
+          "tag": "p",
+          "text": "You will need permission from the park events team before using a gazebo. We will contact you about this after reviewing your request."
+        },
+        {
+          "kind": "button",
+          "position": 14,
+          "button": {
+            "destination": "",
+            "position": 14,
+            "text": "Continue",
+            "type": "submit button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "Using a gazebo in a Camden park"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/check-answers"
+      ],
+      "order": 10,
+      "pageName": "park-permission",
+      "pageType": "form page",
+      "primaryHeading": "Using a gazebo in a Camden park",
+      "questions": [],
+      "route": "/event-equipment/park-permission",
+      "routeLine": 1,
+      "sourceLine": 3,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/park-permission.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [],
+      "variants": []
+    },
+    {
+      "backLinks": [
+        {
+          "destination": "/event-equipment/equipment",
+          "text": "Back"
+        }
+      ],
+      "bodyContent": [],
+      "browserTitle": "Check your answers",
+      "buttons": [
+        {
+          "destination": "",
+          "position": 88,
+          "text": "Send request",
+          "type": "submit button"
+        }
+      ],
+      "contentSequence": [
+        {
+          "kind": "summary-list",
+          "position": 13,
+          "summaryList": {
+            "cardActions": [],
+            "position": 13,
+            "rows": [
+              {
+                "actions": [
+                  {
+                    "destination": "/event-equipment/eligibility",
+                    "text": "Change event location"
+                  }
+                ],
+                "key": "Event in Camden",
+                "value": "Yes"
+              },
+              {
+                "actions": [
+                  {
+                    "destination": "/event-equipment/fulfilment",
+                    "text": "Change collection or delivery"
+                  }
+                ],
+                "key": "Collection or delivery",
+                "value": "Collection"
+              },
+              {
+                "actions": [
+                  {
+                    "destination": "/event-equipment/contact",
+                    "text": "Change contact details"
+                  }
+                ],
+                "key": "Contact details",
+                "value": "designer@example.test"
+              },
+              {
+                "actions": [
+                  {
+                    "destination": "/event-equipment/equipment",
+                    "text": "Change equipment"
+                  }
+                ],
+                "key": "Equipment",
+                "value": "Tables"
+              }
+            ],
+            "title": ""
+          }
+        },
+        {
+          "kind": "button",
+          "position": 88,
+          "button": {
+            "destination": "",
+            "position": 88,
+            "text": "Send request",
+            "type": "submit button"
+          }
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "Check your answers"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [
+        "/event-equipment/confirmation",
+        "/event-equipment/eligibility",
+        "/event-equipment/fulfilment",
+        "/event-equipment/contact",
+        "/event-equipment/equipment",
+        "/event-equipment/delivery",
+        "/event-equipment/gazebo-location"
+      ],
+      "order": 11,
+      "pageName": "check-answers",
+      "pageType": "check answers page",
+      "primaryHeading": "Check your answers",
+      "questions": [],
+      "route": "/event-equipment/check-answers",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [
+        "Event in Camden",
+        "Collection or delivery",
+        "Contact details",
+        "Equipment"
+      ],
+      "summaryLists": [
+        {
+          "cardActions": [],
+          "position": 13,
+          "rows": [
+            {
+              "actions": [
+                {
+                  "destination": "/event-equipment/eligibility",
+                  "text": "Change event location"
+                }
+              ],
+              "key": "Event in Camden",
+              "value": "Yes"
+            },
+            {
+              "actions": [
+                {
+                  "destination": "/event-equipment/fulfilment",
+                  "text": "Change collection or delivery"
+                }
+              ],
+              "key": "Collection or delivery",
+              "value": "Collection"
+            },
+            {
+              "actions": [
+                {
+                  "destination": "/event-equipment/contact",
+                  "text": "Change contact details"
+                }
+              ],
+              "key": "Contact details",
+              "value": "designer@example.test"
+            },
+            {
+              "actions": [
+                {
+                  "destination": "/event-equipment/equipment",
+                  "text": "Change equipment"
+                }
+              ],
+              "key": "Equipment",
+              "value": "Tables"
+            }
+          ],
+          "title": ""
+        }
+      ],
+      "tabs": [],
+      "template": "event-equipment/check-answers.njk",
+      "warnings": [],
+      "stateLabel": "Collection summary",
+      "validationCases": [],
+      "variants": [
+        {
+          "backLinks": [
+            {
+              "destination": "/event-equipment/equipment",
+              "text": "Back"
+            }
+          ],
+          "bodyContent": [],
+          "browserTitle": "Check your answers",
+          "buttons": [
+            {
+              "destination": "",
+              "position": 106,
+              "text": "Send request",
+              "type": "submit button"
+            }
+          ],
+          "contentSequence": [
+            {
+              "kind": "summary-list",
+              "position": 13,
+              "summaryList": {
+                "cardActions": [],
+                "position": 13,
+                "rows": [
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/eligibility",
+                        "text": "Change event location"
+                      }
+                    ],
+                    "key": "Event in Camden",
+                    "value": "Yes"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/fulfilment",
+                        "text": "Change collection or delivery"
+                      }
+                    ],
+                    "key": "Collection or delivery",
+                    "value": "Delivery"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/delivery",
+                        "text": "Change delivery address"
+                      }
+                    ],
+                    "key": "Delivery address",
+                    "value": "Example address, Camden"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/contact",
+                        "text": "Change contact details"
+                      }
+                    ],
+                    "key": "Contact details",
+                    "value": "020 7946 0000"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/equipment",
+                        "text": "Change equipment"
+                      }
+                    ],
+                    "key": "Equipment",
+                    "value": "Tables"
+                  }
+                ],
+                "title": ""
+              }
+            },
+            {
+              "kind": "button",
+              "position": 106,
+              "button": {
+                "destination": "",
+                "position": 106,
+                "text": "Send request",
+                "type": "submit button"
+              }
+            }
+          ],
+          "accordions": [],
+          "details": [],
+          "headings": [
+            "Check your answers"
+          ],
+          "journey": "event-equipment",
+          "nextRoutes": [],
+          "order": "11.1",
+          "pageName": "check-answers",
+          "pageType": "check answers page",
+          "primaryHeading": "Check your answers",
+          "questions": [],
+          "route": "/event-equipment/check-answers",
+          "routeLine": 1,
+          "sourceLine": 5,
+          "sessionDataKeys": [],
+          "summaryLabels": [
+            "Event in Camden",
+            "Collection or delivery",
+            "Delivery address",
+            "Contact details",
+            "Equipment"
+          ],
+          "summaryLists": [
+            {
+              "cardActions": [],
+              "position": 13,
+              "rows": [
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/eligibility",
+                      "text": "Change event location"
+                    }
+                  ],
+                  "key": "Event in Camden",
+                  "value": "Yes"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/fulfilment",
+                      "text": "Change collection or delivery"
+                    }
+                  ],
+                  "key": "Collection or delivery",
+                  "value": "Delivery"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/delivery",
+                      "text": "Change delivery address"
+                    }
+                  ],
+                  "key": "Delivery address",
+                  "value": "Example address, Camden"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/contact",
+                      "text": "Change contact details"
+                    }
+                  ],
+                  "key": "Contact details",
+                  "value": "020 7946 0000"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/equipment",
+                      "text": "Change equipment"
+                    }
+                  ],
+                  "key": "Equipment",
+                  "value": "Tables"
+                }
+              ],
+              "title": ""
+            }
+          ],
+          "tabs": [],
+          "template": "event-equipment/check-answers.njk",
+          "warnings": [],
+          "stateLabel": "Delivery summary includes address",
+          "validationCases": []
+        },
+        {
+          "backLinks": [
+            {
+              "destination": "/event-equipment/park-permission",
+              "text": "Back"
+            }
+          ],
+          "bodyContent": [],
+          "browserTitle": "Check your answers",
+          "buttons": [
+            {
+              "destination": "",
+              "position": 106,
+              "text": "Send request",
+              "type": "submit button"
+            }
+          ],
+          "contentSequence": [
+            {
+              "kind": "summary-list",
+              "position": 13,
+              "summaryList": {
+                "cardActions": [],
+                "position": 13,
+                "rows": [
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/eligibility",
+                        "text": "Change event location"
+                      }
+                    ],
+                    "key": "Event in Camden",
+                    "value": "Yes"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/fulfilment",
+                        "text": "Change collection or delivery"
+                      }
+                    ],
+                    "key": "Collection or delivery",
+                    "value": "Collection"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/contact",
+                        "text": "Change contact details"
+                      }
+                    ],
+                    "key": "Contact details",
+                    "value": "designer@example.test"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/equipment",
+                        "text": "Change equipment"
+                      }
+                    ],
+                    "key": "Equipment",
+                    "value": "Gazebo"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/gazebo-location",
+                        "text": "Change gazebo location"
+                      }
+                    ],
+                    "key": "Gazebo location",
+                    "value": "Camden park"
+                  }
+                ],
+                "title": ""
+              }
+            },
+            {
+              "kind": "button",
+              "position": 106,
+              "button": {
+                "destination": "",
+                "position": 106,
+                "text": "Send request",
+                "type": "submit button"
+              }
+            }
+          ],
+          "accordions": [],
+          "details": [],
+          "headings": [
+            "Check your answers"
+          ],
+          "journey": "event-equipment",
+          "nextRoutes": [],
+          "order": "11.2",
+          "pageName": "check-answers",
+          "pageType": "check answers page",
+          "primaryHeading": "Check your answers",
+          "questions": [],
+          "route": "/event-equipment/check-answers",
+          "routeLine": 1,
+          "sourceLine": 5,
+          "sessionDataKeys": [],
+          "summaryLabels": [
+            "Event in Camden",
+            "Collection or delivery",
+            "Contact details",
+            "Equipment",
+            "Gazebo location"
+          ],
+          "summaryLists": [
+            {
+              "cardActions": [],
+              "position": 13,
+              "rows": [
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/eligibility",
+                      "text": "Change event location"
+                    }
+                  ],
+                  "key": "Event in Camden",
+                  "value": "Yes"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/fulfilment",
+                      "text": "Change collection or delivery"
+                    }
+                  ],
+                  "key": "Collection or delivery",
+                  "value": "Collection"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/contact",
+                      "text": "Change contact details"
+                    }
+                  ],
+                  "key": "Contact details",
+                  "value": "designer@example.test"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/equipment",
+                      "text": "Change equipment"
+                    }
+                  ],
+                  "key": "Equipment",
+                  "value": "Gazebo"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/gazebo-location",
+                      "text": "Change gazebo location"
+                    }
+                  ],
+                  "key": "Gazebo location",
+                  "value": "Camden park"
+                }
+              ],
+              "title": ""
+            }
+          ],
+          "tabs": [],
+          "template": "event-equipment/check-answers.njk",
+          "warnings": [],
+          "stateLabel": "Gazebo in a Camden park summary",
+          "validationCases": []
+        },
+        {
+          "backLinks": [
+            {
+              "destination": "/event-equipment/gazebo-location",
+              "text": "Back"
+            }
+          ],
+          "bodyContent": [],
+          "browserTitle": "Check your answers",
+          "buttons": [
+            {
+              "destination": "",
+              "position": 106,
+              "text": "Send request",
+              "type": "submit button"
+            }
+          ],
+          "contentSequence": [
+            {
+              "kind": "summary-list",
+              "position": 13,
+              "summaryList": {
+                "cardActions": [],
+                "position": 13,
+                "rows": [
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/eligibility",
+                        "text": "Change event location"
+                      }
+                    ],
+                    "key": "Event in Camden",
+                    "value": "Yes"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/fulfilment",
+                        "text": "Change collection or delivery"
+                      }
+                    ],
+                    "key": "Collection or delivery",
+                    "value": "Collection"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/contact",
+                        "text": "Change contact details"
+                      }
+                    ],
+                    "key": "Contact details",
+                    "value": "designer@example.test"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/equipment",
+                        "text": "Change equipment"
+                      }
+                    ],
+                    "key": "Equipment",
+                    "value": "Gazebo"
+                  },
+                  {
+                    "actions": [
+                      {
+                        "destination": "/event-equipment/gazebo-location",
+                        "text": "Change gazebo location"
+                      }
+                    ],
+                    "key": "Gazebo location",
+                    "value": "Other outdoor space"
+                  }
+                ],
+                "title": ""
+              }
+            },
+            {
+              "kind": "button",
+              "position": 106,
+              "button": {
+                "destination": "",
+                "position": 106,
+                "text": "Send request",
+                "type": "submit button"
+              }
+            }
+          ],
+          "accordions": [],
+          "details": [],
+          "headings": [
+            "Check your answers"
+          ],
+          "journey": "event-equipment",
+          "nextRoutes": [],
+          "order": "11.3",
+          "pageName": "check-answers",
+          "pageType": "check answers page",
+          "primaryHeading": "Check your answers",
+          "questions": [],
+          "route": "/event-equipment/check-answers",
+          "routeLine": 1,
+          "sourceLine": 5,
+          "sessionDataKeys": [],
+          "summaryLabels": [
+            "Event in Camden",
+            "Collection or delivery",
+            "Contact details",
+            "Equipment",
+            "Gazebo location"
+          ],
+          "summaryLists": [
+            {
+              "cardActions": [],
+              "position": 13,
+              "rows": [
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/eligibility",
+                      "text": "Change event location"
+                    }
+                  ],
+                  "key": "Event in Camden",
+                  "value": "Yes"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/fulfilment",
+                      "text": "Change collection or delivery"
+                    }
+                  ],
+                  "key": "Collection or delivery",
+                  "value": "Collection"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/contact",
+                      "text": "Change contact details"
+                    }
+                  ],
+                  "key": "Contact details",
+                  "value": "designer@example.test"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/equipment",
+                      "text": "Change equipment"
+                    }
+                  ],
+                  "key": "Equipment",
+                  "value": "Gazebo"
+                },
+                {
+                  "actions": [
+                    {
+                      "destination": "/event-equipment/gazebo-location",
+                      "text": "Change gazebo location"
+                    }
+                  ],
+                  "key": "Gazebo location",
+                  "value": "Other outdoor space"
+                }
+              ],
+              "title": ""
+            }
+          ],
+          "tabs": [],
+          "template": "event-equipment/check-answers.njk",
+          "warnings": [],
+          "stateLabel": "Gazebo in another outdoor space summary",
+          "validationCases": []
+        }
+      ]
+    },
+    {
+      "backLinks": [],
+      "bodyContent": [
+        "This is a prototype. No equipment has been reserved."
+      ],
+      "browserTitle": "Request received",
+      "buttons": [],
+      "contentSequence": [
+        {
+          "kind": "text",
+          "position": 14,
+          "tag": "p",
+          "text": "This is a prototype. No equipment has been reserved."
+        }
+      ],
+      "accordions": [],
+      "details": [],
+      "headings": [
+        "Request received"
+      ],
+      "journey": "event-equipment",
+      "nextRoutes": [],
+      "order": 12,
+      "pageName": "confirmation",
+      "pageType": "confirmation page",
+      "primaryHeading": "Request received",
+      "questions": [],
+      "route": "/event-equipment/confirmation",
+      "routeLine": 1,
+      "sourceLine": 5,
+      "sessionDataKeys": [],
+      "summaryLabels": [],
+      "summaryLists": [],
+      "tabs": [],
+      "template": "event-equipment/confirmation.njk",
+      "warnings": [],
+      "stateLabel": "Default",
+      "validationCases": [],
+      "variants": []
+    }
+  ],
+  "edges": [
+    {
+      "from": "/event-equipment/start",
+      "to": "/event-equipment/eligibility",
+      "label": "Start now",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/eligibility",
+      "to": "/event-equipment/fulfilment",
+      "label": "Yes — event in Camden",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/eligibility",
+      "to": "/event-equipment/not-eligible",
+      "label": "No — outside Camden",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/not-eligible",
+      "to": "/event-equipment/eligibility",
+      "label": "Change your answer",
+      "kind": "change"
+    },
+    {
+      "from": "/event-equipment/fulfilment",
+      "to": "/event-equipment/collection",
+      "label": "Collection",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/fulfilment",
+      "to": "/event-equipment/delivery",
+      "label": "Delivery",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/collection",
+      "to": "/event-equipment/contact",
+      "label": "Continue",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/delivery",
+      "to": "/event-equipment/contact",
+      "label": "Continue",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/contact",
+      "to": "/event-equipment/equipment",
+      "label": "Email supplied",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/contact",
+      "to": "/event-equipment/equipment",
+      "label": "Phone supplied",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/equipment",
+      "to": "/event-equipment/check-answers",
+      "label": "Tables",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/equipment",
+      "to": "/event-equipment/gazebo-location",
+      "label": "Gazebo",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/gazebo-location",
+      "to": "/event-equipment/park-permission",
+      "label": "Camden park",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/gazebo-location",
+      "to": "/event-equipment/check-answers",
+      "label": "Other outdoor space",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/park-permission",
+      "to": "/event-equipment/check-answers",
+      "label": "Continue",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/check-answers",
+      "to": "/event-equipment/confirmation",
+      "label": "Send request",
+      "kind": "forward"
+    },
+    {
+      "from": "/event-equipment/check-answers",
+      "to": "/event-equipment/eligibility",
+      "label": "Change event location",
+      "kind": "change"
+    },
+    {
+      "from": "/event-equipment/check-answers",
+      "to": "/event-equipment/fulfilment",
+      "label": "Change collection or delivery",
+      "kind": "change"
+    },
+    {
+      "from": "/event-equipment/check-answers",
+      "to": "/event-equipment/contact",
+      "label": "Change contact details",
+      "kind": "change"
+    },
+    {
+      "from": "/event-equipment/check-answers",
+      "to": "/event-equipment/equipment",
+      "label": "Change equipment",
+      "kind": "change"
+    },
+    {
+      "from": "/event-equipment/check-answers",
+      "to": "/event-equipment/delivery",
+      "label": "Change delivery address",
+      "kind": "change"
+    },
+    {
+      "from": "/event-equipment/check-answers",
+      "to": "/event-equipment/gazebo-location",
+      "label": "Change gazebo location",
+      "kind": "change"
+    }
+  ],
+  "validations": [
+    {
+      "path": "/event-equipment/eligibility",
+      "label": "Missing required answer",
+      "status": 422,
+      "errors": {
+        "equipmentEligible": "Select whether your event is in Camden"
+      }
+    },
+    {
+      "path": "/event-equipment/fulfilment",
+      "label": "Missing required answer",
+      "status": 422,
+      "errors": {
+        "equipmentFulfilment": "Select collection or delivery"
+      }
+    },
+    {
+      "path": "/event-equipment/delivery",
+      "label": "Missing required answer",
+      "status": 422,
+      "errors": {
+        "equipmentAddress": "Enter the delivery address"
+      }
+    },
+    {
+      "path": "/event-equipment/contact",
+      "label": "Missing required answer",
+      "status": 422,
+      "errors": {
+        "equipmentContact": "Select how we should contact you"
+      }
+    },
+    {
+      "path": "/event-equipment/contact",
+      "label": "Email selected without address",
+      "status": 422,
+      "errors": {
+        "equipmentEmail": "Enter your email address"
+      }
+    },
+    {
+      "path": "/event-equipment/contact",
+      "label": "Email has invalid format",
+      "status": 422,
+      "errors": {
+        "equipmentEmail": "Enter an email address in the correct format"
+      }
+    },
+    {
+      "path": "/event-equipment/contact",
+      "label": "Phone selected without number",
+      "status": 422,
+      "errors": {
+        "equipmentPhone": "Enter your phone number"
+      }
+    },
+    {
+      "path": "/event-equipment/equipment",
+      "label": "Missing required answer",
+      "status": 422,
+      "errors": {
+        "equipment": "Select the equipment you need"
+      }
+    },
+    {
+      "path": "/event-equipment/gazebo-location",
+      "label": "Missing required answer",
+      "status": 422,
+      "errors": {
+        "gazeboLocation": "Select where you will use the gazebo"
+      }
+    }
+  ],
+  "sourceHash": "d73ce01faa27",
+  "coverage": "Rendered scenario coverage; not an exhaustive proof of all possible answers. Sample values are fictional.",
+  "warnings": [],
+  "generatedAt": "2026-10-02T13:34:09.111Z",
+  "generatorVersion": "2.0.0",
+  "gitCommit": "62d7247",
+  "journeyName": "Event Equipment",
+  "kitVersion": "0.1.0",
+  "revisionLabel": "r010",
+  "timezone": "Europe/London"
+}

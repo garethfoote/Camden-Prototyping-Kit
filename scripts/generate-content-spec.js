@@ -7,7 +7,7 @@ const fs = require('node:fs')
 const path = require('node:path')
 const { execFileSync } = require('node:child_process')
 
-const GENERATOR_VERSION = '1.2.0'
+const GENERATOR_VERSION = '2.0.0'
 const RESERVED_VIEW_DIRECTORIES = new Set([
   'components',
   'includes',
@@ -15,7 +15,7 @@ const RESERVED_VIEW_DIRECTORIES = new Set([
   'macros',
   'partials'
 ])
-const KNOWN_EXAMPLE_JOURNEYS = new Set(['complaints', 'permit'])
+const KNOWN_EXAMPLE_JOURNEYS = new Set(['complaints', 'permit', 'event-equipment'])
 const VOID_ELEMENTS = new Set([
   'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link',
   'meta', 'param', 'source', 'track', 'wbr'
@@ -31,7 +31,7 @@ Options:
   --journey <name>       Export a named journey folder from app/views
   --all                  Export every non-example journey
   --include-examples     Include bundled example journeys when using --all
-  --format <format>      markdown, csv or both (default: markdown)
+  --format <format>      markdown, csv or both (default: markdown); SVG and JSON always included
   --output <directory>   Output directory (default: content-specs)
   --revision <number>    Set the revision number instead of auto-incrementing
   --list                 List detected journeys without exporting
@@ -422,7 +422,7 @@ function nearestHint (root, control) {
   const describedBy = String(control.attrs['aria-describedby'] || '').split(/\s+/).filter(Boolean)
   const describedHints = describedBy
     .map(id => findById(root, id))
-    .filter(node => node && hasClass(node, 'govuk-hint'))
+    .filter(node => node && hasClass(node, 'govuk-hint') && !hasClass(node, 'govuk-character-count__message'))
     .map(nodeText)
   if (describedHints.length) return unique(describedHints).join(' ')
 
@@ -430,7 +430,7 @@ function nearestHint (root, control) {
   if (!group) return ''
   const conditional = closest(control, node => hasClass(node, 'govuk-radios__conditional') || hasClass(node, 'govuk-checkboxes__conditional'))
   const hint = findFirst(group, node => {
-    if (!hasClass(node, 'govuk-hint')) return false
+    if (!hasClass(node, 'govuk-hint') || hasClass(node, 'govuk-character-count__message')) return false
     const hintConditional = closest(node, ancestor => hasClass(ancestor, 'govuk-radios__conditional') || hasClass(ancestor, 'govuk-checkboxes__conditional'))
     return hintConditional === conditional
   })
@@ -455,7 +455,7 @@ function contentBlocks (container) {
   return blocks.length ? unique(blocks) : [nodeText(container)].filter(Boolean)
 }
 
-function extractSummaryLists (main) {
+function extractSummaryLists (main, positions) {
   return findAll(main, node => hasClass(node, 'govuk-summary-list')).map(list => {
     const card = closest(list, node => hasClass(node, 'govuk-summary-card'))
     const titleNode = card ? findFirst(card, node => hasClass(node, 'govuk-summary-card__title')) : null
@@ -482,20 +482,21 @@ function extractSummaryLists (main) {
           text: nodeText(action)
         }))
       : []
-    return { cardActions, rows, title: nodeText(titleNode) }
+    return { cardActions, position: positions.get(list), rows, title: nodeText(titleNode) }
   })
 }
 
-function extractDetails (main) {
+function extractDetails (main, positions) {
   return findAll(main, node => node.tag === 'details' && hasClass(node, 'govuk-details')).map(details => {
     const summary = findFirst(details, node => node.tag === 'summary')
     const content = findFirst(details, node => hasClass(node, 'govuk-details__text'))
-    return { content: contentBlocks(content), summary: nodeText(summary) }
+    return { content: contentBlocks(content), position: positions.get(details), summary: nodeText(summary) }
   }).filter(item => item.summary || item.content.length)
 }
 
-function extractAccordions (main) {
+function extractAccordions (main, positions) {
   return findAll(main, node => hasClass(node, 'govuk-accordion')).map(accordion => ({
+    position: positions.get(accordion),
     sections: findAll(accordion, node => hasClass(node, 'govuk-accordion__section')).map(section => {
       const heading = findFirst(section, node => hasClass(node, 'govuk-accordion__section-button')) ||
         findFirst(section, node => hasClass(node, 'govuk-accordion__section-heading'))
@@ -510,8 +511,9 @@ function extractAccordions (main) {
   })).filter(accordion => accordion.sections.length)
 }
 
-function extractTabs (main) {
+function extractTabs (main, positions) {
   return findAll(main, node => hasClass(node, 'govuk-tabs')).map(tabs => ({
+    position: positions.get(tabs),
     title: nodeText(findFirst(tabs, node => hasClass(node, 'govuk-tabs__title'))),
     items: findAll(tabs, node => hasClass(node, 'govuk-tabs__tab')).map(tab => {
       const targetId = String(tab.attrs.href || '').replace(/^#/, '')
@@ -534,10 +536,43 @@ function isStructuredContent (node) {
   ))
 }
 
+function indexNodes (root) {
+  const positions = new Map()
+  let position = 0
+  findAll(root, node => {
+    positions.set(node, position)
+    position += 1
+    return false
+  })
+  return positions
+}
+
+function characterLimitFor (control) {
+  const group = closest(control, node => hasClass(node, 'govuk-form-group'))
+  if (!group) return ''
+  const conditional = closest(control, node => hasClass(node, 'govuk-radios__conditional') || hasClass(node, 'govuk-checkboxes__conditional'))
+  const message = findFirst(group, node => {
+    if (!hasClass(node, 'govuk-character-count__message')) return false
+    const messageConditional = closest(node, ancestor => hasClass(ancestor, 'govuk-radios__conditional') || hasClass(ancestor, 'govuk-checkboxes__conditional'))
+    return messageConditional === conditional
+  })
+  return message ? nodeText(message) : ''
+}
+
+function isStandaloneContent (node) {
+  if (!['h2', 'h3', 'h4', 'h5', 'h6', 'p', 'li'].includes(node.tag)) return false
+  if (hasClass(node, 'govuk-error-message') || hasClass(node, 'govuk-hint')) return false
+  if (isStructuredContent(node)) return false
+  if (closest(node, ancestor => ancestor.tag === 'fieldset' || hasClass(ancestor, 'govuk-form-group'))) return false
+  if (closest(node, ancestor => hasClass(ancestor, 'govuk-error-summary') || ['nav', 'header', 'footer'].includes(ancestor.tag))) return false
+  return Boolean(nodeText(node))
+}
+
 function extractPageFromHtml ({ html, journey, route, root, source, template }) {
   const document = parseHtml(html)
   const main = findFirst(document, node => node.attrs?.id === 'main-content') ||
     findFirst(document, node => node.tag === 'main') || document
+  const positions = indexNodes(main)
   const warnings = []
   const forms = findAll(main, node => node.tag === 'form')
   const journeyForms = forms.filter(form => {
@@ -627,9 +662,12 @@ function extractPageFromHtml ({ html, journey, route, root, source, template }) 
         .join('; '),
       conditionalParents,
       fieldName: name,
+      group: grouped ? '' : nodeText(legend),
       hint: grouped && controls.length > 1 ? groupedHint(fieldset) : nearestHint(scope, first),
+      characterLimit: characterLimitFor(first),
       line: findSourceLine(source, [name, first.attrs.id]),
       options,
+      position: positions.get(first),
       question,
       required,
       validationMessages
@@ -651,16 +689,17 @@ function extractPageFromHtml ({ html, journey, route, root, source, template }) 
     .map(nodeText)
     .filter(Boolean)
   const summaryLabels = findAll(main, node => node.tag === 'dt').map(nodeText).filter(Boolean)
-  const summaryLists = extractSummaryLists(main)
-  const details = extractDetails(main)
-  const accordions = extractAccordions(main)
-  const tabs = extractTabs(main)
+  const summaryLists = extractSummaryLists(main, positions)
+  const details = extractDetails(main, positions)
+  const accordions = extractAccordions(main, positions)
+  const tabs = extractTabs(main, positions)
   const buttons = findAll(main, node => {
     if (node.tag === 'button') return true
     if (node.tag !== 'a') return false
     return hasClass(node, 'govuk-button') || hasClass(node, 'lbcamden-button') || node.attrs.role === 'button'
   }).map(node => ({
     destination: node.attrs.href || node.attrs.formaction || '',
+    position: positions.get(node),
     text: nodeText(node),
     type: node.tag === 'a' ? 'link button' : 'submit button'
   })).filter(button => button.text)
@@ -684,11 +723,30 @@ function extractPageFromHtml ({ html, journey, route, root, source, template }) 
     warnings.push('A form was found, but no named form controls were extracted.')
   }
 
+  const contentSequence = [
+    ...findAll(main, isStandaloneContent).map(node => ({
+      kind: 'text',
+      position: positions.get(node),
+      tag: node.tag,
+      text: nodeText(node)
+    })),
+    ...questions.filter(question => !question.conditionalParents.length).map(question => ({ kind: 'question', position: question.position, question })),
+    ...details.map(details => ({ kind: 'details', position: details.position, details })),
+    ...accordions.map(accordion => ({ kind: 'accordion', position: accordion.position, accordion })),
+    ...tabs.map(tabs => ({ kind: 'tabs', position: tabs.position, tabs })),
+    ...summaryLists.map(summaryList => ({ kind: 'summary-list', position: summaryList.position, summaryList })),
+    ...buttons.map(button => ({ kind: 'button', position: button.position, button }))
+  ].sort((a, b) => a.position - b.position)
+
   return {
     backLinks,
-    bodyContent: unique([...paragraphs, ...listItems]),
+    bodyContent: unique(findAll(main, node => node.tag === 'p' || node.tag === 'li' || hasClass(node, 'govuk-hint'))
+      .filter(node => !hasClass(node, 'govuk-error-message') && !isStructuredContent(node))
+      .filter(node => !closest(node, ancestor => hasClass(ancestor, 'govuk-error-summary') || ['nav', 'header', 'footer'].includes(ancestor.tag)))
+      .map(nodeText).filter(Boolean)),
     browserTitle,
     buttons,
+    contentSequence,
     accordions,
     details,
     headings: unique(headings),
@@ -787,7 +845,9 @@ function extractJourney ({ environment, journey, root, routes, routesSource }) {
   const journeyWarnings = []
 
   for (const template of viewFiles) {
-    const getRoute = routes.find(route => route.method === 'GET' && route.template === template.replace(/\.njk$/, ''))
+    const matchingRoutes = routes.filter(route => route.method === 'GET' && route.template === template.replace(/\.njk$/, ''))
+    if (matchingRoutes.length > 1 || matchingRoutes.some(route => route.path.includes(':'))) journeyWarnings.push(`Dynamic or shared template ${template} requires export scenarios; static extraction is incomplete.`)
+    const getRoute = matchingRoutes[0]
     if (!getRoute) {
       journeyWarnings.push(`No GET route renders ${template}.`)
       continue
@@ -879,6 +939,7 @@ function appendConditionalQuestion (lines, question, childrenByOption, indent, a
   lines.push(`${indent}  - Component: ${question.componentType}`)
   lines.push(`${indent}  - Field name: \`${question.fieldName}\``)
   lines.push(`${indent}  - Hint: ${markdownValue(question.hint)}`)
+  if (question.characterLimit) lines.push(`${indent}  - Character limit guidance: ${markdownValue(question.characterLimit)}`)
   lines.push(`${indent}  - Required: ${question.required}`)
   lines.push(`${indent}  - Validation: ${question.validationMessages.length ? question.validationMessages.join('; ') : 'None detected'}`)
   lines.push(`${indent}  - Source line: ${question.line}`)
@@ -909,18 +970,78 @@ function appendConditionalChildren (lines, parentQuestion, option, childrenByOpt
 
 function appendQuestion (lines, question, childrenByOption) {
   lines.push('', `#### ${question.question || question.fieldName}`, '')
-  lines.push(`- Component: ${question.componentType}`)
-  lines.push(`- Field name: \`${question.fieldName}\``)
-  lines.push(`- Label or legend: ${markdownValue(question.question)}`)
-  lines.push(`- Hint: ${markdownValue(question.hint)}`)
-  lines.push(`- Required: ${question.required}`)
-  lines.push(`- Validation: ${question.validationMessages.length ? question.validationMessages.join('; ') : 'None detected'}`)
-  lines.push(`- Source line: ${question.line}`)
+  appendQuestionDetails(lines, question, childrenByOption)
+}
+
+function appendQuestionDetails (lines, question, childrenByOption, indent = '') {
+  lines.push(`${indent}- Component: ${question.componentType}`)
+  if (question.group) lines.push(`${indent}- Field group: ${question.group}`)
+  lines.push(`${indent}- Field name: \`${question.fieldName}\``)
+  lines.push(`${indent}- Label or legend: ${markdownValue(question.question)}`)
+  lines.push(`${indent}- Hint: ${markdownValue(question.hint)}`)
+  if (question.characterLimit) lines.push(`${indent}- Character limit guidance: ${markdownValue(question.characterLimit)}`)
+  lines.push(`${indent}- Required: ${question.required}`)
+  lines.push(`${indent}- Validation: ${question.validationMessages.length ? question.validationMessages.join('; ') : 'None detected'}`)
+  lines.push(`${indent}- Source line: ${question.line}`)
   if (question.options.length) {
-    lines.push('- Options:')
+    lines.push(`${indent}- Options:`)
     for (const option of question.options) {
-      lines.push(`  - ${optionMarkdown(option)}`)
-      appendConditionalChildren(lines, question, option, childrenByOption, '  ', new Set([question.fieldName]))
+      lines.push(`${indent}  - ${optionMarkdown(option)}`)
+      appendConditionalChildren(lines, question, option, childrenByOption, `${indent}  `, new Set([question.fieldName]))
+    }
+  }
+}
+
+function appendOrderedContent (lines, page) {
+  if (!page.contentSequence?.length) return
+  const questionsByName = new Map(page.questions.map(question => [question.fieldName, question]))
+  const childrenByOption = new Map()
+  for (const question of page.questions) {
+    for (const relationship of question.conditionalParents || []) {
+      if (!questionsByName.has(relationship.parentFieldName)) continue
+      const key = conditionalKey(relationship.parentFieldName, relationship.optionValue)
+      if (!childrenByOption.has(key)) childrenByOption.set(key, [])
+      childrenByOption.get(key).push(question)
+    }
+  }
+
+  lines.push('', '### Page content')
+  let number = 0
+  for (const item of page.contentSequence) {
+    number += 1
+    if (item.kind === 'question') {
+      lines.push('', `${number}. **Type:** Form component`)
+      appendQuestionDetails(lines, item.question, childrenByOption, '   ')
+    } else if (item.kind === 'text') {
+      if (/^h[2-6]$/.test(item.tag)) {
+        lines.push('', `${number}. **Type:** Heading`, `   - Level: ${item.tag}`, `   - Text: ${item.text}`)
+      } else {
+        lines.push('', `${number}. **Type:** Text`, `   - Text: ${item.text}`)
+      }
+    } else if (item.kind === 'button') {
+      const destination = item.button.destination ? ` → \`${item.button.destination}\`` : ''
+      lines.push('', `${number}. **Type:** ${item.button.type === 'submit button' ? 'Button' : 'Link button'}`, `   - Text: ${item.button.text}${destination}`)
+    } else if (item.kind === 'details') {
+      lines.push('', `${number}. **Type:** Details`, `   - Summary: ${item.details.summary || 'Not specified'}`)
+      appendContentBlocks(lines, item.details.content, '   ')
+    } else if (item.kind === 'accordion') {
+      lines.push('', `${number}. **Type:** Accordion`)
+      for (const section of item.accordion.sections) {
+        lines.push(`   - Section: ${section.heading || 'Accordion section'}${section.summary ? ` — ${section.summary}` : ''}`)
+        appendContentBlocks(lines, section.content, '     ')
+      }
+    } else if (item.kind === 'tabs') {
+      lines.push('', `${number}. **Type:** Tabs${item.tabs.title ? ` — ${item.tabs.title}` : ''}`)
+      for (const tab of item.tabs.items) {
+        lines.push(`   - Tab: ${tab.label || 'Tab'}`)
+        appendContentBlocks(lines, tab.content, '     ')
+      }
+    } else if (item.kind === 'summary-list') {
+      lines.push('', `${number}. **Type:** Summary list${item.summaryList.title ? ` — ${item.summaryList.title}` : ''}`)
+      for (const row of item.summaryList.rows) {
+        lines.push(`   - **${row.key || 'Summary item'}:** ${row.value}`)
+        if (row.actions.length) lines.push(`     - Actions: ${row.actions.map(action => action.destination ? `${action.text} → \`${action.destination}\`` : action.text).join('; ')}`)
+      }
     }
   }
 }
@@ -950,9 +1071,23 @@ function createMarkdown (specification) {
     lines.push(`| ${page.order} | \`${page.route}\` | ${page.pageType} | ${String(page.browserTitle || '').replace(/\|/g, '\\|')} |`)
   }
 
-  for (const page of specification.pages) {
+  if (specification.coverage) lines.push('', '## Coverage', '', specification.coverage)
+  if (specification.edges?.length) {
+    lines.push(
+      '',
+      '## Observed transitions',
+      '',
+      'These are the routes exercised by the export scenarios. Each row records the page shown, the answer or action submitted, and the next page the prototype actually returned. They cover the scenarios chosen for this export, rather than every possible combination of answers.',
+      '',
+      '| From | Action / scenario | To |',
+      '| --- | --- | --- |'
+    )
+    for (const edge of specification.edges) lines.push(`| ${edge.from} | ${edge.label.replace(/\|/g, '\\|')} | ${edge.to} |`)
+  }
+  for (const page of specification.pages.flatMap(page => [page, ...(page.variants || [])])) {
     const pageName = page.primaryHeading || page.browserTitle || path.basename(page.template, '.njk')
     lines.push('', `## ${page.order}. ${pageName}`, '')
+    if (page.stateLabel && page.order !== Math.floor(page.order)) lines.push(`- Rendered variant: ${page.stateLabel}. This version has different visible content from the main page entry.`)
     lines.push(`- Route: \`${page.route}\``)
     lines.push(`- Page name: \`${page.pageName}\``)
     lines.push(`- Template: \`app/views/${page.template}\``)
@@ -963,79 +1098,12 @@ function createMarkdown (specification) {
     lines.push(`- Next route: ${page.nextRoutes.length ? page.nextRoutes.map(route => `\`${route}\``).join(', ') : 'Not determined'}`)
     lines.push(`- Session data: ${page.sessionDataKeys.length ? page.sessionDataKeys.map(key => `\`${key}\``).join(', ') : 'None detected'}`)
 
-    if (page.bodyContent.length) {
-      lines.push('', '### Body content', '')
-      for (const content of page.bodyContent) lines.push(`- ${content}`)
-    }
-    if (page.details.length) {
-      lines.push('', '### Details')
-      for (const details of page.details) {
-        lines.push('', `#### ${details.summary || 'Details'}`, '')
-        appendContentBlocks(lines, details.content)
-      }
-    }
-    if (page.accordions.length) {
-      lines.push('', '### Accordions')
-      for (const accordion of page.accordions) {
-        for (const section of accordion.sections) {
-          lines.push('', `#### ${section.heading || 'Accordion section'}`, '')
-          if (section.summary) lines.push(`- Summary: ${section.summary}`)
-          appendContentBlocks(lines, section.content)
-        }
-      }
-    }
-    if (page.tabs.length) {
-      lines.push('', '### Tabs')
-      for (const tabs of page.tabs) {
-        if (tabs.title) lines.push('', `- Title: ${tabs.title}`)
-        for (const item of tabs.items) {
-          lines.push('', `#### ${item.label || 'Tab'}`, '')
-          appendContentBlocks(lines, item.content)
-        }
-      }
-    }
-    if (page.summaryLists.length) {
-      lines.push('', '### Summary lists')
-      for (const summaryList of page.summaryLists) {
-        if (summaryList.title) lines.push('', `#### ${summaryList.title}`, '')
-        if (summaryList.cardActions.length) {
-          lines.push('', `- Card actions: ${summaryList.cardActions.map(action => action.destination ? `${action.text} → \`${action.destination}\`` : action.text).join('; ')}`)
-        }
-        for (const row of summaryList.rows) {
-          lines.push(`- **${row.key || 'Summary item'}:** ${row.value}`)
-          if (row.actions.length) {
-            lines.push(`  - Actions: ${row.actions.map(action => action.destination ? `${action.text} → \`${action.destination}\`` : action.text).join('; ')}`)
-          }
-        }
-      }
-    } else if (page.summaryLabels.length) {
-      lines.push('', '### Summary labels', '')
-      for (const label of page.summaryLabels) lines.push(`- ${label}`)
-    }
-    if (page.questions.length) {
-      const questionsByName = new Map(page.questions.map(question => [question.fieldName, question]))
-      const childrenByOption = new Map()
-      const nestedFields = new Set()
-      for (const question of page.questions) {
-        for (const relationship of question.conditionalParents || []) {
-          if (!questionsByName.has(relationship.parentFieldName)) continue
-          const key = conditionalKey(relationship.parentFieldName, relationship.optionValue)
-          if (!childrenByOption.has(key)) childrenByOption.set(key, [])
-          childrenByOption.get(key).push(question)
-          nestedFields.add(question.fieldName)
-        }
-      }
-
-      lines.push('', '### Questions and conditional content')
-      for (const question of page.questions.filter(item => !nestedFields.has(item.fieldName))) {
-        appendQuestion(lines, question, childrenByOption)
-      }
-    }
-    if (page.buttons.length) {
-      lines.push('', '### Buttons', '')
-      for (const button of page.buttons) {
-        const destination = button.destination ? ` → \`${button.destination}\`` : ''
-        lines.push(`- ${button.text} (${button.type})${destination}`)
+    appendOrderedContent(lines, page)
+    if (page.validationCases?.length) {
+      lines.push('', '### Verified validation cases', '')
+      for (const item of page.validationCases) {
+        lines.push(`- **${item.label}:**`)
+        for (const [field, message] of Object.entries(item.errors)) lines.push(`  - ${field}: ${message}`)
       }
     }
     if (page.warnings.length) {
@@ -1058,6 +1126,7 @@ function csvEscape (value) {
 }
 
 function createCsv (specification) {
+  specification = { ...specification, pages: specification.pages.flatMap(page => [page, ...(page.variants || [])]) }
   const headers = [
     'revision', 'generated_at', 'generator_version', 'journey', 'page_order',
     'route', 'page_name', 'template', 'page_type', 'browser_title', 'headings',
@@ -1138,6 +1207,12 @@ function writeSpecification ({ extracted, options, outputDirectory, root }) {
     fs.writeFileSync(csvPath, createCsv(specification), 'utf8')
     created.push(csvPath)
   }
+  const { createSvg } = require('./lib/journey-export')
+  for (const [extension, content] of [['svg', createSvg(specification)], ['json', JSON.stringify(specification, null, 2) + '\n']]) {
+    const file = path.join(outputDirectory, `${baseName}.${extension}`)
+    fs.writeFileSync(file, content, 'utf8')
+    created.push(file)
+  }
   return { created, specification }
 }
 
@@ -1175,7 +1250,14 @@ function main () {
     }
 
     for (const journey of selected) {
-      const extracted = extractJourney({ environment, journey, root, routes, routesSource })
+      const scenarioPath = path.join(root, 'scripts/export-scenarios', `${journey}.js`)
+      const extracted = fs.existsSync(scenarioPath)
+        ? require('./lib/journey-export').extractScenarios({ root, journey, environment, core: module.exports, scenarios: require(scenarioPath) })
+        : extractJourney({ environment, journey, root, routes, routesSource })
+      if (!fs.existsSync(scenarioPath)) {
+        extracted.coverage = 'Static extraction only. Conditional server-rendered states and computed branches have not been exercised.'
+        extracted.warnings.push('No export scenarios: journey diagram and conditional content coverage are unverified.')
+      }
       warningCount += extracted.warnings.length
       const result = writeSpecification({ extracted, options, outputDirectory, root })
       for (const file of result.created) console.log(path.relative(root, file))
@@ -1194,4 +1276,5 @@ function main () {
   }
 }
 
-main()
+module.exports = { createNunjucksEnvironment, extractPageFromHtml, parseHtml, findFirst, findAll, nodeText, walkFiles, extractRoutes, extractJourney, writeSpecification, createMarkdown, createCsv }
+if (require.main === module) main()

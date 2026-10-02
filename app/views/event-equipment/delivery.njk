@@ -1,0 +1,20 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary, textInput %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "Where should we deliver the equipment?" %}
+{% block beforeContent %}<div class="govuk-width-container">
+<a class="govuk-back-link" href="/event-equipment/fulfilment">Back</a>
+</div>{% endblock %}
+{% block content %}<div class="govuk-width-container">
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<h1 class="govuk-heading-xl">Where should we deliver the equipment?</h1>
+<form action="/event-equipment/delivery" method="post" novalidate>
+{{ textInput({name: "equipmentAddress", label: "Delivery address", value: data.equipmentAddress, error: errors.equipmentAddress}) }}
+{{ LBCamdenButton({text: "Continue", preventDoubleClick: true}) }}
+</form>
+</div>
+</div>
+</div>{% endblock %}

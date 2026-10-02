@@ -1,0 +1,16 @@
+{% extends "layouts/main.njk" %}
+{% from "macros/forms.njk" import errorSummary, textInput %}
+{% from "event-equipment/_macros.njk" import fieldError %}
+{% from "components/button/macro.njk" import LBCamdenButton %}
+{% set pageTitle = "Request received" %}
+{% block content %}<div class="govuk-width-container">
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-two-thirds">
+{{ errorSummary(errorList) }}
+<div class="govuk-panel govuk-panel--confirmation">
+<h1 class="govuk-panel__title">Request received</h1>
+</div>
+<p class="govuk-body">This is a prototype. No equipment has been reserved.</p>
+</div>
+</div>
+</div>{% endblock %}
