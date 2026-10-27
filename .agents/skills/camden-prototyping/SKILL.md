@@ -42,6 +42,12 @@ If the page list, sketch, screenshot, wireframe, or journey map is ambiguous, as
 
 Ask one plain-language question for each important ambiguity, for example: “Can the user choose more than one option?” or “Should the user leave the service if they answer no?” Do not invent a visual or interaction detail that is unclear in the supplied material. If an ambiguity does not affect the journey or accessibility, make a sensible assumption and record it in the proposal instead of interrupting the user with a question.
 
+When a select, radio group, or checkbox group is missing its choices, ask for the options before implementing it. If the supplied list appears incomplete, clarify the missing choices, especially where they affect eligibility or branching.
+
+Before choosing an input, consider what information the service needs and check the relevant GOV.UK pattern. For ambiguous requests such as “location”, distinguish a postal address from a place description or precise position, and establish whether it must support UK locations, international locations, or both. Do not assume a UK address format or require a UK postcode when international addresses are in scope. Clarify when the distinction affects the journey; otherwise explain the proposed choice.
+
+Do not assume that a question's wording defines how to collect the answer. Check both the information needed and the answer structure before choosing controls. For example, “What made it impressive?” could need free text, one choice, or multiple choices. “What is your name?” could mean one full-name field or separate given and family names; establish whether middle names or a title are needed rather than adding them by default. Ask focused questions where these decisions are unresolved, and use requirements already supplied in the brief to avoid asking again.
+
 ## Implementing a journey
 
 Use the existing architecture:
