@@ -81,6 +81,8 @@ For a complete transactional journey, include a start page, the necessary form p
 
 ## Question-page defaults
 
+Suggest changes to the form’s structure when they could improve the user journey, even when the user has proposed a specific grouping or page order. Briefly explain the benefit and respect their final decision.
+
 Use the GOV.UK Design System question-page pattern as the default for form journeys. Read the linked guidance when a request involves an unfamiliar page type or a deliberate exception.
 
 - Start with one thing per page: normally one piece of information, one decision, or one question.
