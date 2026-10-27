@@ -183,9 +183,12 @@ Recommended:
 
 ```text
 SESSION_SECRET
+NODE_VERSION=22.23.4
 ```
 
-Set this to a long random phrase. It is used to protect prototype session data.
+Set `SESSION_SECRET` to a long random phrase. It is used to protect prototype session data.
+
+Set `NODE_VERSION` to `22.23.4`, the patched Node 22 version used by this kit. The repository's `.nvmrc` also specifies `22.23.4`. Render's `NODE_VERSION` environment variable takes precedence over `.nvmrc`, so check for an older override when updating an existing service. Keep both settings up to date as newer security releases become available.
 
 Usually automatic on Render:
 
@@ -194,6 +197,27 @@ NODE_ENV=production
 ```
 
 Render normally sets `NODE_ENV` to `production` for Node services at runtime. If the deployed prototype does not ask for a password, check that `NODE_ENV` is `production` and that `PROTOTYPE_PASSWORD` is set.
+
+## Update Node.js on an existing Render prototype
+
+These steps are for prototypes deployed as native Node web services using the settings above. You need access to each service in Render. Updating the original kit does not automatically update existing prototype repositories or running services.
+
+For the October 2026 Node.js security updates, use `22.23.4` or a newer patched Node 22 release. This addresses the Brotli decoder vulnerability and the eMudhra certificate trust issue. Updating npm packages alone does not update Node.js. See the [Render eMudhra advisory](https://render.com/docs/advisory-emudhra) and [Node.js security release details](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases).
+
+1. Sign in to the [Render dashboard](https://dashboard.render.com) and open the prototype's web service.
+2. Open **Environment** and choose the option to edit environment variables.
+3. Find `NODE_VERSION`. Change its value to `22.23.4`, or add it if it is missing. Keep the existing password and session settings.
+4. Save the change. If Render offers a save-and-deploy option, choose the option that rebuilds and deploys the service.
+5. If saving did not start a rebuild, choose **Manual Deploy > Deploy latest commit**. A restart alone is not enough.
+6. Open the new deployment's logs. Check that the selected Node version is `22.23.4` (or the newer patched Node 22 version you chose) and wait for the deployment to show **Live**. If a runtime shell is available, run `node --version` there to confirm the running version.
+7. Open the prototype's public URL. Check that the password prompt appears, sign in, and try a short journey through the form.
+8. Repeat for every live prototype service, including any separate test services.
+
+If the rebuild fails, check the deployment logs before treating the service as updated: the previous version may still be serving traffic.
+
+Also update `.nvmrc` in each prototype's own repository to `22.23.4`, then review, commit and push that change using GitHub Desktop. This keeps the repository aligned with Render. People using nvm locally can run `nvm install` and `nvm use` from the prototype folder to use the specified version.
+
+Docker deployments need an updated Node installation and certificate store in their image, followed by a rebuild and redeploy; the `NODE_VERSION` setting above is for Render's native Node runtime. See [Render's advisory](https://render.com/docs/advisory-emudhra) for Docker instructions and [Node version settings](https://render.com/docs/node-version) for version precedence.
 
 ## How the deployed password works
 
