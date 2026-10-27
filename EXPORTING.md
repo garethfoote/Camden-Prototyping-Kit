@@ -6,7 +6,7 @@ The branching equipment example uses a separate view file for each page. Its exp
 node scripts/generate-content-spec.js --journey event-equipment --strict
 ```
 
-Each run creates a Markdown content specification, an SVG journey diagram and a JSON record in `content-specs`. They share a revision, timestamp and source fingerprint. SVG text stays sharp when zoomed or imported into a design board. Use `--format both` to include CSV; Markdown preserves conditional relationships better. The diagram omits Change links for readability; the document and JSON retain them. Repeated entries are screen states, not separate page files.
+Each run writes a Markdown content specification, an SVG journey diagram and a JSON record in `content-specs`, using stable `<journey>-content-spec-current` filenames. Before replacing them, it copies the previous export to filenames containing its original revision and generation date, for example `<journey>-content-spec-r001-2026-10-21T10-30-00Z.md`. Existing dated exports are retained and count towards the next revision. Commit the current files and archives together; review the current Markdown file in GitHub for content changes. The generation date and revision remain inside the current files. They share a revision, timestamp and source fingerprint. SVG text stays sharp when zoomed or imported into a design board. Use `--format both` to include CSV; Markdown preserves conditional relationships better. The diagram omits Change links for readability; the document and JSON retain them. Repeated entries are screen states, not separate page files.
 
 ## Add scenarios to a new journey
 
@@ -40,3 +40,24 @@ node --test tests/journey-export.test.js
 ```
 
 The tests check real content and behaviour: conditional email errors, branch answer cleanup, guarded routes, missed pages, unexpected transitions, SVG escaping, matching output revisions, and compatibility with the older permit/complaints examples. Also review the example in the browser, particularly its conditional reveals and error summary.
+
+## Exercise: reviewing content changes through to delivery
+
+Recorded 21 October 2026 following discussion of the mental health front door prototype. These are questions to explore, not an agreed delivery policy.
+
+Working hypothesis: while the prototype is actively being designed, designers change content in the prototype, regenerate the content specification and journey diagram, and include the source changes and exports in the same pull request. Developers review the generated Markdown changes in GitHub. Start with this workflow before building a separate content comparison interface.
+
+The exporter now uses stable current filenames and archives the previous export with its revision and date. GitHub can compare successive versions of the current Markdown file. Keep generation metadata from overwhelming meaningful content changes, and check that an unchanged prototype produces no meaningful diff.
+
+Try the workflow with a heading change, an option or hint change, a validation-message change, a conditional-content change and a removed page. Check that reviewers can identify the affected page, the old and new wording, and any changed journey behaviour. Check scenario coverage before treating an export as complete; exported content is limited by the states exercised.
+
+Questions for designers and developers:
+
+- While design and development overlap, which artefact is authoritative: the prototype, the generated specification, a separately maintained document, or the live implementation?
+- Should every agreed content change be made in the prototype first? How are changes made during development reflected back, and who owns that work?
+- Can the generated specification serve as the shared handoff document without being edited independently? If a separate editable document becomes authoritative, how will divergence be resolved?
+- How do we distinguish proposed wording, approved wording and wording implemented in the service? Which reviewed revision is development using?
+- Until when should the prototype match the intended live service? At launch, is it archived as a dated reference, maintained, or allowed to diverge under an explicit policy?
+- Does GitHub's Markdown diff give designers and developers enough context, or is there evidence that a dedicated comparison interface is needed?
+
+Useful outcome: agree ownership, the authoritative artefact at each stage, a repeatable review process and an explicit point at which prototype maintenance ends or changes purpose. Do not introduce two independently edited sources without deciding how they stay aligned.

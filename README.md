@@ -131,4 +131,4 @@ The Markdown output also groups summary-list rows and actions, details content, 
 
 SVG and JSON are generated alongside the document. For a verified branching example, run `node scripts/generate-content-spec.js --journey event-equipment --strict`. The example covers eligibility, collection or delivery, contact details, and a gazebo location branch. See [EXPORTING.md](EXPORTING.md) for scenario coverage, limitations and testing.
 
-Files are written to `content-specs` with a revision number and generation time. Run `node scripts/generate-content-spec.js --help` for all options. The exporter now includes `scripts/lib/journey-export.js`; copy that supporting module too when transferring it.
+Current files are written to `content-specs` with stable `-content-spec-current` filenames. Each subsequent run archives the previous files with their original revision number and generation time. Run `node scripts/generate-content-spec.js --help` for all options. The exporter now includes `scripts/lib/journey-export.js`; copy that supporting module too when transferring it.

@@ -912,7 +912,7 @@ function packageVersion (root) {
 function nextRevision (outputDirectory, journey) {
   if (!fs.existsSync(outputDirectory)) return 1
   const escapedJourney = journey.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const pattern = new RegExp(`^${escapedJourney}-content-spec-r(\\d{3})-`)
+  const pattern = new RegExp(`^${escapedJourney}-content-spec-r(\\d+)-`)
   const revisions = fs.readdirSync(outputDirectory)
     .map(file => file.match(pattern))
     .filter(Boolean)
@@ -1180,9 +1180,13 @@ function safeTimestamp (date) {
 
 function writeSpecification ({ extracted, options, outputDirectory, root }) {
   const generated = new Date()
-  const revision = options.revision || nextRevision(outputDirectory, extracted.journey)
+  const baseName = `${extracted.journey}-content-spec-current`
+  const currentJson = path.join(outputDirectory, `${baseName}.json`)
+  const previous = fs.existsSync(currentJson) ? JSON.parse(fs.readFileSync(currentJson, 'utf8')) : null
+  const minimumRevision = Math.max(nextRevision(outputDirectory, extracted.journey), previous ? Number(previous.revisionLabel.slice(1)) + 1 : 1)
+  if (options.revision && options.revision < minimumRevision) throw new Error(`Revision must be at least ${minimumRevision}`)
+  const revision = options.revision || minimumRevision
   const revisionLabel = `r${String(revision).padStart(3, '0')}`
-  const timestamp = safeTimestamp(generated)
   const specification = {
     ...extracted,
     generatedAt: generated.toISOString(),
@@ -1193,25 +1197,37 @@ function writeSpecification ({ extracted, options, outputDirectory, root }) {
     revisionLabel,
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown'
   }
-  const baseName = `${extracted.journey}-content-spec-${revisionLabel}-${timestamp}`
+  const { createSvg } = require('./lib/journey-export')
+  // Render everything before touching the previous export.
+  const outputs = new Map([
+    ['svg', createSvg(specification)],
+    ['json', JSON.stringify(specification, null, 2) + '\n']
+  ])
+  if (options.format === 'both' || options.format === 'markdown') outputs.set('md', createMarkdown(specification))
+  if (options.format === 'both' || options.format === 'csv') outputs.set('csv', createCsv(specification))
   const created = []
   fs.mkdirSync(outputDirectory, { recursive: true })
-
-  if (options.format === 'both' || options.format === 'markdown') {
-    const markdownPath = path.join(outputDirectory, `${baseName}.md`)
-    fs.writeFileSync(markdownPath, createMarkdown(specification), 'utf8')
-    created.push(markdownPath)
+  const extensions = ['md', 'csv', 'svg', 'json']
+  const existing = extensions.filter(extension => fs.existsSync(path.join(outputDirectory, `${baseName}.${extension}`)))
+  if (existing.length && !previous) throw new Error('Current export has no JSON metadata; restore it before exporting again')
+  if (previous) {
+    const archiveName = `${extracted.journey}-content-spec-${previous.revisionLabel}-${safeTimestamp(new Date(previous.generatedAt))}`
+    // Check every destination before copying; never overwrite a historical record.
+    for (const extension of existing) {
+      if (fs.existsSync(path.join(outputDirectory, `${archiveName}.${extension}`))) throw new Error(`Archive already exists: ${archiveName}.${extension}`)
+    }
+    for (const extension of existing) {
+      fs.copyFileSync(path.join(outputDirectory, `${baseName}.${extension}`), path.join(outputDirectory, `${archiveName}.${extension}`), fs.constants.COPYFILE_EXCL)
+    }
   }
-  if (options.format === 'both' || options.format === 'csv') {
-    const csvPath = path.join(outputDirectory, `${baseName}.csv`)
-    fs.writeFileSync(csvPath, createCsv(specification), 'utf8')
-    created.push(csvPath)
-  }
-  const { createSvg } = require('./lib/journey-export')
-  for (const [extension, content] of [['svg', createSvg(specification)], ['json', JSON.stringify(specification, null, 2) + '\n']]) {
+  for (const [extension, content] of outputs) {
     const file = path.join(outputDirectory, `${baseName}.${extension}`)
     fs.writeFileSync(file, content, 'utf8')
     created.push(file)
+  }
+  // A format change must not leave an older CSV or Markdown labelled current.
+  for (const extension of existing) {
+    if (!outputs.has(extension)) fs.unlinkSync(path.join(outputDirectory, `${baseName}.${extension}`))
   }
   return { created, specification }
 }

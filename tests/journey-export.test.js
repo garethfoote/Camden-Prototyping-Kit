@@ -94,3 +94,27 @@ test('older permit and complaints exports still run, with honest static coverage
     assert(spec.warnings.some(w => w.includes('No export scenarios')))
   }
 })
+
+
+test('current exports stay stable and previous revisions are preserved byte for byte', () => {
+  const outputDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'export-history-'))
+  try {
+    const extracted = extract()
+    const write = format => core.writeSpecification({ root, extracted, outputDirectory, options: { format } })
+    const first = write('both')
+    const originals = new Map(first.created.map(file => [path.extname(file), fs.readFileSync(file)]))
+    assert(first.created.every(file => path.basename(file).includes('-current.')))
+    const second = write('markdown')
+    assert.equal(second.specification.revisionLabel, 'r002')
+    const archive = `${extracted.journey}-content-spec-r001-${first.specification.generatedAt.replace(/:/g, '-').replace(/\.\d{3}Z$/, 'Z')}`
+    for (const [extension, content] of originals) assert.deepEqual(fs.readFileSync(path.join(outputDirectory, archive + extension)), content)
+    assert(!fs.existsSync(path.join(outputDirectory, `${extracted.journey}-content-spec-current.csv`)))
+    const third = write('both')
+    assert.equal(third.specification.revisionLabel, 'r003')
+    assert.deepEqual(third.created.sort(), first.created.sort())
+    assert.equal(fs.readdirSync(outputDirectory).length, 11)
+    assert.throws(() => core.writeSpecification({ root, extracted, outputDirectory, options: { format: 'both', revision: 1 } }), /Revision must be at least 4/)
+  } finally {
+    fs.rmSync(outputDirectory, { recursive: true, force: true })
+  }
+})
