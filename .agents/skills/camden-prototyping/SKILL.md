@@ -89,6 +89,8 @@ For a complete transactional journey, include a start page, the necessary form p
 
 Suggest changes to the form’s structure when they could improve the user journey, even when the user has proposed a specific grouping or page order. Briefly explain the benefit and respect their final decision.
 
+During the journey proposal, review every page against “one thing per page”. If a page combines separate questions or decisions, recommend a concrete split and explain the benefit before implementation. A shared topic or broad heading alone does not justify grouping. Respect the user’s decision if they choose to keep the grouping.
+
 Use the GOV.UK Design System question-page pattern as the default for form journeys. Read the linked guidance when a request involves an unfamiliar page type or a deliberate exception.
 
 - Start with one thing per page: normally one piece of information, one decision, or one question.
